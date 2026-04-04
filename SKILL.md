@@ -414,7 +414,84 @@ announce_with_progress "系统更新" 3 \
     "sudo apt autoremove -y"
 ```
 
-🦊 让你的工作流程会说话，提高透明度和工作效率！
-Make your workflow talk, increase transparency and productivity!
+---
 
-⭐ 如果这个技能对你有帮助，请给它一个 star！⭐
+## 🚀 快速集成指南（避免遗漏）
+
+为了让播报功能真正"强制执行"，建议将语音播报直接集成到你的 OpenClaw Agent 响应循环中。
+
+### Python Agent 集成（推荐）
+
+```python
+# 在 agent 文件开头添加
+import sys
+import subprocess
+from pathlib import Path
+
+ANNOUNCE_SCRIPT = str(Path.home() / ".openclaw-autoclaw" / "skills" / "audio-announcement" / "scripts" / "announce_pygame.py")
+
+def announce(type_, message, lang="zh"):
+    """语音播报 - 同步模式（确保播报完成）"""
+    try:
+        result = subprocess.run(
+            [sys.executable, ANNOUNCE_SCRIPT, type_, message, lang],
+            capture_output=True,
+            timeout=30
+        )
+        return result.returncode == 0
+    except:
+        return False  # 播报失败不影响主流程
+
+# 在你的响应循环中调用
+def handle_message(self, message):
+    announce("receive", message.content[:20])  # 收到消息播报
+    
+    # ... 处理消息逻辑 ...
+    
+    response = self.generate_response(message)
+    announce("complete", response[:20])  # 发送回复前播报
+    return response
+```
+
+### 使用助手模块（更简单）
+
+复制 `scripts/announce_helper.py` 到你的项目，然后：
+
+```python
+from announce_helper import announce, receive, task, complete, error
+
+# 一行调用
+receive("用户查询天气")
+task("正在获取数据")
+complete("已发送天气预报")
+error("网络超时")
+```
+
+### Bash / Shell 集成
+
+在你的脚本中：
+
+```bash
+#!/bin/bash
+ANNOUNCE="$HOME/.openclaw-autoclaw/skills/audio-announcement/scripts/announce_pygame.py"
+
+announce() {
+    python3 "$ANNOUNCE" "$1" "$2" zh &
+}
+
+# 使用
+announce receive "开始备份"
+# ... 执行备份 ...
+announce complete "备份完成"
+```
+
+### 避免遗漏的最佳实践
+
+1. **模板化**：将播报代码复制到所有 agent 模板中
+2. **检查清单**：使用 AGENTS.md 中的清单每次任务后自查
+3. **自动验证**：定期运行 `scripts/verify_announcement.py`
+4. **异步非阻塞**：如需流畅交互，可使用 `async_=True` 参数
+
+---
+
+## 🔧 高级配置
