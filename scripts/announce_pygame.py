@@ -44,8 +44,9 @@ def generate_audio(text, voice, output_file):
     
     for i in range(1, MAX_RETRIES + 1):
         try:
+            # 使用 python -m edge_tts 避免依赖 PATH，更稳定
             result = subprocess.run(
-                ["edge-tts", "--text", text, "--voice", voice, "--write-media", output_file],
+                [sys.executable, "-m", "edge_tts", "--text", text, "--voice", voice, "--write-media", output_file],
                 capture_output=True, timeout=30
             )
             if result.returncode == 0 and os.path.exists(output_file) and os.path.getsize(output_file) > 0:
