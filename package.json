@@ -12,34 +12,35 @@
   "dependencies": {
     "python": ">=3.7",
     "edge-tts": ">=6.1.3",
-    "pygame": "recommended (Windows)",
-    "ffmpeg": "optional",
-    "mpg123": "optional (Linux)",
-    "afplay": "optional (macOS)"
+    "pygame": "recommended (all platforms, provides consistent experience)",
+    "ffmpeg": "optional (Linux/macOS fallback)"
   },
   "platforms": {
-    "macos": {
-      "status": "stable",
-      "recommended": true,
-      "script": "scripts/announce.sh",
-      "dependencies": []
-    },
-    "linux": {
-      "status": "stable",
-      "script": "scripts/announce.sh",
-      "dependencies": ["mpg123"]
-    },
     "windows": {
       "status": "stable",
       "script": "scripts/announce_pygame.py",
       "altScripts": ["scripts/announce.bat", "scripts/announce.ps1"],
-      "dependencies": ["pygame"],
-      "notes": "Windows 11 推荐 PyGame 方案，无需 VLC/WMP"
+      "dependencies": ["edge-tts", "pygame"],
+      "notes": "推荐使用 pygame 方案，提供最佳体验"
+    },
+    "macos": {
+      "status": "stable",
+      "recommended": true,
+      "script": "scripts/announce.sh",
+      "dependencies": ["edge-tts", "afplay or ffmpeg"],
+      "notes": "优先确保 pygame 可用（pip install pygame），否则使用系统播放器"
+    },
+    "linux": {
+      "status": "stable",
+      "recommended": true,
+      "script": "scripts/announce.sh",
+      "dependencies": ["edge-tts", "mpg123 or ffmpeg"],
+      "notes": "优先确保 pygame 可用（pip install pygame），否则使用系统播放器"
     },
     "android": {
       "status": "experimental",
       "script": "scripts/announce.sh",
-      "dependencies": ["termux"]
+      "dependencies": ["termux", "edge-tts"]
     }
   },
   "supportedLanguages": ["zh", "en", "ja", "ko", "es", "fr", "de"],
