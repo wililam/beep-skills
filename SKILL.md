@@ -11,11 +11,13 @@
 **安装**: `clawhub install audio-announcement` 或 `pip install audio-announcement`
 
 ### 🎯 最新更新 (v2.0.8 - 2026-04-05)
-- ✅ **防遗忘强化完成** - 添加 startup_check_announcement.py 启动自检
-- ✅ **Session Hook 规则** - AGENTS.md 新增自动检查机制
-- ✅ **身份绑定** - IDENTITY.md 和 BOOTSTRAP.md 强化播报作为核心身份
-- ✅ **完整技术文档** - docs/announcement-anti-forgetting.md
-- ✅ **三重保障** - 启动自检 + Heartbeat 定期验证 + 强制规则
+- ✅ **播报本地化** - 所有播报仅在本机后台播放，不发送语音文件到聊天界面
+- ✅ **统一包装脚本** - 新增 `scripts/announce.py`，自动解析 skill 路径，避免硬编码
+- ✅ **默认音量优化** - 配置文件默认 `volume: 0.1`（10%），保护听力避免打扰
+- ✅ **CLI 工具修复** - 修复 pygame 导入问题，提升 Windows 稳定性
+- ✅ **文档全面升级** - MEMORY.md / AGENTS.md / TOOLS.md 统一管理播报工作流
+- ✅ **会话复盘机制** - 建立复盘流程，持续改进
+- ✅ **安全边界强化** - 破坏性操作（关机）必须明确授权
 
 ### 🎯 最新更新 (v2.0.7 - 2026-04-05)
 - ✅ **高优先级优化完成** - PyPI 打包支持、配置文件系统、异步默认化

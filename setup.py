@@ -9,7 +9,7 @@ long_description = (this_dir / "README.md").read_text(encoding="utf-8") if (this
 
 setup(
     name="audio-announcement",
-    version="2.0.6",
+    version="2.0.8",
     author="miaoweilin (wililam)",
     author_email="uinecn@126.com",
     description="Make your OpenClaw Agent talk! Real-time voice announcements for AI actions.",

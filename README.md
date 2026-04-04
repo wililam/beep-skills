@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.7.4-blue.svg)
+![Version](https://img.shields.io/badge/version-2.0.8-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows%20%7C%20Android-lightgrey.svg)
 
@@ -131,13 +131,27 @@ cp -r audio-announcement-skills ~/.openclaw/skills/audio-announcement
 
 ### 使用方法
 
+**推荐：使用统一包装脚本（避免硬编码路径）**
+
+```bash
+# 从工作区直接调用
+python scripts/announce.py receive "收到上传指令" zh
+python scripts/announce.py task "正在生成文档" zh
+python scripts/announce.py complete "任务完成" zh
+python scripts/announce.py error "网络异常" zh
+```
+
+该脚本自动解析 skill 安装路径，无需关心具体位置。
+
+**备选：直接调用平台脚本**
+
 **macOS / Linux:**
 ```bash
-# 龙虾说中文
-./announce.sh complete "任务完成" zh
+# 使用 shell 脚本（自动选择最佳方案）
+./scripts/announce.sh complete "任务完成" zh
 
-# 龙虾说英文
-./announce.sh complete "Task finished" en
+# 或直接使用 pygame 方案
+python scripts/announce_pygame.py complete "任务完成" zh
 ```
 
 **Windows (推荐 - PyGame):**
@@ -145,8 +159,8 @@ cp -r audio-announcement-skills ~/.openclaw/skills/audio-announcement
 # 安装 PyGame（Windows 11 最佳方案）
 pip install pygame
 
-# v1.5.0+ 自动检测 Windows 平台
-./announce.sh complete "任务完成" zh
+# 使用 pygame 方案（最稳定）
+python scripts/announce_pygame.py complete "任务完成" zh
 ```
 
 ---
@@ -189,6 +203,7 @@ audio-announcement/
 ├── package.json
 ├── version.txt
 └── scripts/
+    ├── announce.py           # 🆕 统一包装脚本 (v2.0.7+)
     ├── announce.sh           # 主脚本 (v1.5.0+: Windows 自动调用 pygame)
     ├── announce_pygame.py    # Windows pygame 方案
     ├── announce-offline.sh   # 离线模式
