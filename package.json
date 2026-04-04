@@ -1,6 +1,6 @@
 {
   "name": "audio-announcement",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "让 OpenClaw 开口说话，实时播报 AI 的一举一动。支持 9 种语言，完整支持 Windows 11。提供透明度、安全感和人性化体验。",
   "author": "miaoweilin (wililam)",
   "license": "MIT",
@@ -56,11 +56,15 @@
     "cross-platform",
     "windows-11-support",
     "path-independent",
-    "anti-forgetting"
+    "anti-forgetting",
+    "configurable",
+    "async-playback",
+    "pypi-package"
   ],
-  "tags": ["tts", "audio", "announcement", "transparency", "voice", "speech", "windows", "pygame", "anti-forgetting"],
+  "tags": ["tts", "audio", "announcement", "transparency", "voice", "speech", "windows", "pygame", "anti-forgetting", "pypi"],
   "minimumOpenClawVersion": "1.0.0",
   "changelog": {
+    "2.0.7": "高优先级优化：PyPI 打包支持、配置文件系统、异步默认化、CLI 工具",
     "2.0.6": "增强防遗忘机制：添加验证脚本、heartbeat 自动检查、集成检查清单、快速集成指南",
     "2.0.5": "修复 PATH 依赖问题，使用 python -m edge_tts 模块调用，Windows 高可靠性",
     "2.0.4": "强化播报规则，集成到核心配置，强制执行机制，内容规范",

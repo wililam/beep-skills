@@ -6,15 +6,19 @@
 
 这是一个语音播报技能，可以让你的 AI 代理通过语音实时告诉你它在做什么。就像一只爱说话的龙虾，让你更清楚、更安心地知道 AI 的当前状态。
 
-**版本**: 2.0.6  
+**版本**: 2.0.7  
 **状态**: ✅ 生产就绪  
-**安装**: `clawhub install audio-announcement`
+**安装**: `clawhub install audio-announcement` 或 `pip install audio-announcement`
+
+### 🎯 最新更新 (v2.0.7 - 2026-04-05)
+- ✅ **高优先级优化完成** - PyPI 打包、配置文件系统、异步默认化
+- ✅ **PyPI 支持** - 可通过 `pip install audio-announcement` 安装
+- ✅ **配置文件** - `~/.config/audio-announcement/config.json`（enabled/lang/volume/async_default）
+- ✅ **异步默认** - 默认后台播放，减少对 Agent 响应时间的阻塞
+- ✅ **CLI 工具** - `audio-announce` 命令支持测试、配置、统计
+- ✅ **集成建议更新** - AGENTS.md 添加最佳实践和示例代码
 
 ### 🎯 最新更新 (v2.0.6 - 2026-04-05)
-- ✅ **增强防遗忘机制** - 添加验证脚本、heartbeat 自动检查、集成检查清单
-- ✅ **快速集成指南** - 提供 announce_helper.py 简化集成
-- ✅ **强制规则模板** - 可直接复制到 AGENTS.md 的完整规则
-- ✅ **Windows 高可靠性** - 使用 python -m edge_tts 模块调用，不依赖 PATH
 
 ### 🎯 最新更新 (v2.0.5 - 2026-04-05)
 - ✅ **修复 PATH 依赖问题** - announce_pygame.py 改用 `python -m edge_tts` 模块调用，不依赖 PATH 环境变量
