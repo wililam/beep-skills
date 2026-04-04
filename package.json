@@ -47,7 +47,8 @@
   "entryPoints": {
     "macos": "scripts/announce.sh",
     "linux": "scripts/announce.sh",
-    "windows": "scripts/announce_pygame.py"
+    "windows": "scripts/announce_pygame.py",
+    "unified": "scripts/announce.py"
   },
   "capabilities": [
     "text-to-speech",
@@ -62,12 +63,15 @@
     "async-playback",
     "pypi-package",
     "session-start-check",
-    "heartbeat-monitoring"
+    "heartbeat-monitoring",
+    "local-playback",
+    "unified-script",
+    "volume-control"
   ],
-  "tags": ["tts", "audio", "announcement", "transparency", "voice", "speech", "windows", "pygame", "anti-forgetting", "pypi", "session-hook"],
+  "tags": ["tts", "audio", "announcement", "transparency", "voice", "speech", "windows", "pygame", "anti-forgetting", "pypi", "session-hook", "local-playback"],
   "minimumOpenClawVersion": "1.0.0",
   "changelog": {
-    "2.0.8": "防遗忘强化：添加 startup_check_announcement.py、Session Hook 规则、IDENTITY/BOOTSTRAP 更新、完整技术文档",
+    "2.0.8": "播报本地化 + 统一脚本 + 音量优化：仅本地播放、announce.py 统一入口、默认音量 10%、CLI 修复、文档全面升级",
     "2.0.7": "高优先级优化：PyPI 打包支持、配置文件系统、异步默认化、CLI 工具、跨平台自动检测",
     "2.0.6": "增强防遗忘机制：添加验证脚本、heartbeat 自动检查、集成检查清单、快速集成指南",
     "2.0.5": "修复 PATH 依赖问题，使用 python -m edge_tts 模块调用，Windows 高可靠性",
