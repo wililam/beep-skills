@@ -1,0 +1,44 @@
+# 编译过的 Python 文件（不发布）
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 分发 / 打包
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+
+# 安装
+install_manifest.txt
+
+# Virtualenv
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 测试
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 缓存
+~/.cache/audio-announcement/
+*.mp3
+
+# 日志
+*.log
+
+# 配置文件（用户级）
+~/.config/audio-announcement/config.json
