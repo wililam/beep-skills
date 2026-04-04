@@ -55,12 +55,13 @@
     "multi-language",
     "cross-platform",
     "windows-11-support",
-    "path-independent"
+    "path-independent",
+    "anti-forgetting"
   ],
-  "tags": ["tts", "audio", "announcement", "transparency", "voice", "speech", "windows", "pygame"],
+  "tags": ["tts", "audio", "announcement", "transparency", "voice", "speech", "windows", "pygame", "anti-forgetting"],
   "minimumOpenClawVersion": "1.0.0",
   "changelog": {
-    "2.0.6": "强制播报系统：前置规则、快速集成指南、自动验证脚本、播报助手模块",
+    "2.0.6": "增强防遗忘机制：添加验证脚本、heartbeat 自动检查、集成检查清单、快速集成指南",
     "2.0.5": "修复 PATH 依赖问题，使用 python -m edge_tts 模块调用，Windows 高可靠性",
     "2.0.4": "强化播报规则，集成到核心配置，强制执行机制，内容规范",
     "1.4.0": "Windows 11 完整支持，新增 announce_pygame.py，无需 WMP",

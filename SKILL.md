@@ -11,13 +11,17 @@
 **安装**: `clawhub install audio-announcement`
 
 ### 🎯 最新更新 (v2.0.6 - 2026-04-05)
-- ✅ **强制播报系统** - AGENTS.md 新增独立强制执行章节，严格规范集成
-- ✅ **快速集成指南** - 提供 Python/Bash 代码模板，降低集成门槛
-- ✅ **自动验证脚本** - `scripts/verify_announcement.py` 定期检查播报功能
-- ✅ **播报助手模块** - `scripts/announce_helper.py` 一键调用，减少遗忘
-- ✅ **HEARTBEAT 集成** - 每 6 小时自动验证，确保持续可用
+- ✅ **增强防遗忘机制** - 添加验证脚本、heartbeat 自动检查、集成检查清单
+- ✅ **快速集成指南** - 提供 announce_helper.py 简化集成
+- ✅ **强制规则模板** - 可直接复制到 AGENTS.md 的完整规则
+- ✅ **Windows 高可靠性** - 使用 python -m edge_tts 模块调用，不依赖 PATH
 
 ### 🎯 最新更新 (v2.0.5 - 2026-04-05)
+- ✅ **修复 PATH 依赖问题** - announce_pygame.py 改用 `python -m edge_tts` 模块调用，不依赖 PATH 环境变量
+- ✅ **Windows 高可靠性** - 即使 edge-tts 不在 PATH 也能正常工作
+- ✅ **配置状态记录** - AGENTS.md 添加语音播报配置状态追踪
+
+### 🎯 最新更新 (v2.0.4 - 2026-03-28)
 - ✅ **强化播报规则** - 5 种播报时机，内容原则，检查清单
 - ✅ **集成到核心配置** - AGENTS.md / SOUL.md / USER.md / MEMORY.md
 - ✅ **强制执行机制** - 每次交互都必须播报，不能遗漏
@@ -63,18 +67,6 @@
 - **不带名称**：不说用户名、不说"我"
 - **口语化**：像朋友随口说一句
 
-#### 强制播报场景
-- 每次收到用户消息 → 先播报指令内容
-- 开始执行任务 → 播报工作规划
-- 执行过程中 → 播报下一步要做什么
-- 任务完成/失败 → 播报工作总结
-- **发送文字回复前 → 播报回复内容的简短总结（1句话）**
-- **API/网络异常时 → 播报告警信息**
-  - Token 用完 → "额度不足"
-  - 网络超时 → "连接超时"
-  - 接口异常 → "服务异常"
-  - 模型不可用 → "模型繁忙"
-
 #### 安装后配置
 
 安装此技能后，需要将以下内容添加到 OpenClaw 工作区的 `AGENTS.md` 文件中，以确保 AI 代理强制执行语音播报：
@@ -99,26 +91,6 @@
 - **不带名称**：不说用户名、不说"我"
 - **口语化**：像朋友随口说一句
 
-### 播报脚本
-\`\`\`bash
-~/.openclaw/skills/audio-announcement/scripts/announce.sh <type> "<message>" [lang]
-\`\`\`
-
-### 示例
-\`\`\`bash
-# 收到消息 - 说出指令
-./announce.sh receive "收到上传指令"
-
-# 开始工作 - 说出规划
-./announce.sh task "准备上传文件"
-
-# 执行中 - 说出进度
-./announce.sh task "正在生成文档"
-
-# 完成 - 说出总结
-./announce.sh complete "上传完成"
-\`\`\`
-
 ### 强制播报场景
 - 每次收到用户消息 → 先播报指令内容
 - 开始执行任务 → 播报工作规划
@@ -132,140 +104,11 @@
   - 模型不可用 → "模型繁忙"
 ```
 
-## 平台支持
+---
 
-| 平台 | 状态 | 推荐方案 | 说明 |
-|------|------|----------|------|
-| **macOS** | ✅ 稳定 | `announce.sh` | 原生 `afplay` 播放，无需额外依赖 |
-| **Linux** | ✅ 稳定 | `announce.sh` | 需安装 `mpg123` 或 `ffmpeg` |
-| **Windows** | ✅ 稳定 | `announce.sh` | 自动调用 pygame，无需 WMP |
-| **Android** | ⚠️ 实验性 | `announce.sh` | 需要 Termux 环境 |
+## 🛠️ 使用方法
 
-### Windows 特别说明 (v1.5.0 更新)
-
-Windows 11 默认禁用了 Windows Media Player。从 v1.5.0 开始，`announce.sh` 在 Windows 平台会自动检测并调用 `announce_pygame.py`，无需手动选择脚本：
-
-```powershell
-# 安装依赖
-pip install edge-tts pygame
-
-# 统一使用 announce.sh（Windows 自动调用 pygame 版本）
-./announce.sh complete "任务完成" zh
-```
-
-**Windows 方案对比：**
-
-| 方案 | 依赖 | 适用场景 |
-|------|------|----------|
-| `announce.sh` | `pygame` | ✅ **推荐**，自动检测平台，统一接口 |
-| `announce_pygame.py` | `pygame` | 直接调用，高级用户可选 |
-| `announce.bat` | VLC/WMP | 备用方案，需安装 VLC |
-| `announce.ps1` | PowerShell + WMP | 旧方案，Win11 可能不兼容 |
-
-## 安装依赖
-
-### 1. 安装 Python 依赖
-
-```bash
-pip install edge-tts
-```
-
-注意：edge-tts 需要 Python 3.7+。如果遇到安装问题，请确保网络通畅或使用国内镜像源。
-
-### 2. 平台特定依赖
-
-#### macOS
-- 系统自带音频播放支持，无需额外安装
-
-#### Linux
-```bash
-# Ubuntu/Debian
-sudo apt-get install mpg123
-
-# CentOS/RHEL/Fedora
-sudo yum install mpg123
-```
-
-#### Windows
-
-**推荐方案 - 使用 pygame（无需 VLC/WMP）：**
-```powershell
-pip install edge-tts pygame
-```
-
-**备用方案 - 使用 VLC：**
-- 安装 [VLC](https://www.videolan.org/vlc/) 媒体播放器
-- 或确保系统已安装能播放 MP3 的音频软件
-
-## 安装方法
-
-### 🚀 方法一：使用 ClawHub（推荐）
-
-```bash
-# 安装最新版
-clawhub install audio-announcement
-
-# 或安装特定版本
-clawhub install audio-announcement@1.4.0
-```
-
-**优点**：
-- 自动处理依赖和配置
-- 一键安装，无需手动复制文件
-- 自动版本管理
-- 社区支持
-
-### 方法二：手动安装（备用）
-
-1. 克隆此技能仓库：
-```bash
-git clone https://github.com/wililam/audio-announcement-skills.git
-```
-
-2. 复制技能到 OpenClaw skills 目录：
-```bash
-# macOS/Linux
-cp -r audio-announcement-skills/skills/audio-announcement ~/.openclaw/skills/
-
-# Windows (PowerShell)
-Copy-Item -Recurse -Force audio-announcement-skills\skills\audio-announcement $env:USERPROFILE\.openclaw\skills\
-```
-
-### 方法三：从网络直接下载（如果克隆失败）
-
-如果 git clone 失败，可以手动下载：
-1. 访问 https://github.com/wililam/audio-announcement-skills
-2. 点击 "Code" → "Download ZIP"
-3. 解压后复制 `skills/audio-announcement` 文件夹到 `~/.openclaw/skills/`
-
-## 使用方法
-
-### 测试播报
-
-使用 `announce.sh` 脚本测试语音功能：
-
-```bash
-# 中文播报（任务完成）
-./announce.sh complete "任务完成" zh
-
-# 英文播报（任务完成）
-./announce.sh complete "Task finished" en
-
-# 日文播报（处理中）
-./announce.sh task "処理中です" ja
-```
-
-### 在 OpenClaw 中使用
-
-技能安装后，OpenClaw 会自动加载。你可以通过以下方式触发播报：
-
-1. **在技能配置中启用**：确保 audio-announcement 技能已启用
-2. **自定义事件**：在你的工作流中添加播报动作
-3. **使用 Skill API**：调用 `announce.sh` 脚本
-
-### 使用方法
-
-#### macOS / Linux
+### macOS / Linux
 
 使用 `announce.sh` 脚本：
 
@@ -274,7 +117,7 @@ Copy-Item -Recurse -Force audio-announcement-skills\skills\audio-announcement $e
 ./announce.sh receive "收到上传指令" zh
 
 # 开始工作 - 说出规划
-./announce.sh task "准备上传到GitHub" zh
+./announce.sh task "准备上传文件" zh
 
 # 执行中 - 说出进度
 ./announce.sh task "正在生成文档" zh
@@ -292,7 +135,7 @@ Copy-Item -Recurse -Force audio-announcement-skills\skills\audio-announcement $e
 ./announce.sh task "処理中です" ja
 ```
 
-#### Windows
+### Windows
 
 使用 `announce_pygame.py` 脚本（推荐）：
 
@@ -338,82 +181,6 @@ scripts\announce.bat complete "任务完成" zh
 #   - es: 西班牙语
 #   - fr: 法语
 #   - de: 德语
-```
-
-## 故障排除
-
-### edge-tts 安装失败
-- 检查 Python 版本（需要 3.7+）
-- 使用 `--trusted-host` 参数或更换镜像源
-- 升级 pip: `python -m pip install --upgrade pip`
-
-### Windows 特定问题
-
-**问题：Windows 11 没有声音**
-- ✅ 解决方案：使用 `announce_pygame.py` 替代 `announce.bat`
-- 安装 pygame: `pip install pygame`
-- 原因：Windows 11 默认禁用 Windows Media Player
-
-**问题：pygame 安装失败**
-- 确保 Python 3.7+ 已安装
-- 尝试: `pip install pygame --upgrade`
-- 或下载预编译 wheel: https://pypi.org/project/pygame/#files
-
-### 没有声音
-- **macOS**: 检查系统音量，确认 `afplay` 可用
-- **Linux**: 确认 `mpg123` 或 `ffmpeg` 已安装
-- **Windows**: 确认 `pygame` 已安装，或使用 VLC 方案
-- 测试播放: `mpg123 test.mp3` (Linux) 或系统音频播放器
-
-### 播报延迟
-- 首次使用会有缓存延迟（首次下载语音包）
-- 网络不佳时可能影响语音获取速度
-- 考虑使用本地语音合成引擎替代
-
-## 技术说明
-
-- 使用 Microsoft Edge 的 TTS 在线服务
-- 语音队列系统确保消息按顺序播放
-- 支持中断和优先级管理
-- 自动重试失败的播报
-
-## 贡献
-
-欢迎提交 Issue 和 PR！
-
-## License
-
-MIT License - 详见 [LICENSE](LICENSE) 文件
-
-## 作者
-
-miaoweilin - [GitHub](https://github.com/wililam)
-
-## 🚀 工作流程集成
-
-### 快速集成
-```bash
-# 加载助手函数
-source ~/.openclaw/skills/audio-announcement/scripts/workflow-helper.sh
-
-# 使用示例
-announce_task "开始任务"
-announce_complete "任务完成"
-announce_error "发生错误"
-```
-
-### 自动包装命令
-```bash
-# 自动播报任务开始和完成
-announce_wrap "文件备份" backup_script.sh
-```
-
-### 带进度播报
-```bash
-announce_with_progress "系统更新" 3 \
-    "sudo apt update" \
-    "sudo apt upgrade -y" \
-    "sudo apt autoremove -y"
 ```
 
 ---
@@ -497,3 +264,107 @@ announce complete "备份完成"
 ---
 
 ## 🔧 高级配置
+
+### 配置播报声音
+
+编辑 `scripts/announce_pygame.py`，修改 `VOLUME` 变量：
+
+```python
+VOLUME = 0.8  # 0.0 - 1.0，默认 1.0
+```
+
+### 自定义语音
+
+修改 `voices` 字典选择不同的 edge-tts 语音：
+
+```python
+voices = {
+    "zh": "zh-CN-XiaoxiaoNeural",  # 晓晓
+    "en": "en-US-JennyNeural",     # Jenny
+    # 更多语音参考: https://learn.microsoft.com/azure/ai-services/speech-service/language-support#text-to-speech
+}
+```
+
+### 禁用特定类型
+
+若某些播报类型不需要，可以在你的 agent 代码中跳过：
+
+```python
+if config.get("announce_receive", True):
+    announce("receive", msg)
+```
+
+---
+
+## 🧪 测试与调试
+
+### 运行验证脚本
+
+```bash
+cd ~/.openclaw-autoclaw/workspace/scripts
+python verify_announcement.py
+```
+
+该脚本会：
+1. 检查 edge-tts 和 pygame 是否安装
+2. 逐一测试四种播报类型
+3. 报告通过率和修复建议
+
+### 常见问题
+
+**没有声音？**
+- 检查系统音量
+- 确认 pygame 已安装：`python -c "import pygame; print(pygame.version.ver)"`
+- 测试 edge-tts：`edge-tts --text "测试" --voice zh-CN-XiaoxiaoNeural --write-media test.mp3`
+
+**播报延迟？**
+- 首次使用会有缓存延迟（下载语音包）
+- 考虑使用本地语音合成引擎替代
+
+**PATH 问题？**
+-  announce_pygame.py 已改用 `python -m edge_tts` 模块调用
+- 不再依赖 PATH 中的 edge-tts 命令
+
+---
+
+## 📊 配置状态追踪
+
+在你的 `AGENTS.md` 和 `MEMORY.md` 中记录配置状态：
+
+```markdown
+### ✅ 播报配置状态 (YYYY-MM-DD)
+
+- [x] edge-tts 已安装
+- [x] pygame 已安装
+- [x] 验证脚本已运行并通过
+- [x] 强制规则已集成到 AGENTS.md
+- [x] Heartbeat 自动检查已启用
+```
+
+---
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 PR！
+
+如果你发现任何遗漏播报的场景，或需要更多集成示例，请告诉我们。
+
+---
+
+## License
+
+MIT License - 详见 [LICENSE](LICENSE) 文件
+
+---
+
+## 📞 支持
+
+- **GitHub Issues**: https://github.com/wililam/audio-announcement-skills/issues
+- **ClawHub**: `clawhub explore audio-announcement`
+
+---
+
+🦊 让你的 OpenClaw Agent 开口说话，透明化每一步操作！
+Make your OpenClaw Agent talk, making every step transparent!
+
+⭐ 如果这个技能对你有帮助，请给它一个 star！⭐
