@@ -28,7 +28,7 @@
 - ✅ **集成建议更新** - AGENTS.md 添加最佳实践和示例代码
 
 ### 🎯 最新更新 (v2.0.6 - 2026-04-05)
-- ✅ **增强防遗忘机制** - 添加验证脚本、heartbeat 自动检查、集成检查清单
+- ✅ **增强防遗忘机制** - 添加验证脚本、集成检查清单
 - ✅ **快速集成指南** - 提供 announce_helper.py 简化集成
 - ✅ **强制规则模板** - 可直接复制到 AGENTS.md 的完整规则
 - ✅ **Windows 高可靠性** - 使用 python -m edge_tts 模块调用，不依赖 PATH
@@ -64,7 +64,7 @@
 - ⚡ **效率**：专注你的工作，让 AI 用声音告诉你进度
 - 🌍 **9种语言**：中文、英文、日文、韩文、西班牙语、法语、德语等
 - 🔄 **队列机制**：消息永不丢失，自动重试
-- 🛡️ **防遗忘**：启动自检 + Heartbeat + 身份绑定，三重保障
+- 🛡️ **防遗忘**：启动自检 + 身份绑定，两重保障
 - 🔌 **Session Hook**：自动在 /NEW 和 /RESET 后运行检查
 
 ---
@@ -96,15 +96,6 @@ if (Test-Path $checkAudio) {
 python ~/.openclaw-autoclaw/skills/audio-announcement/scripts/startup_check_announcement.py 2>/dev/null || true
 ```
 
-### 2️⃣ Heartbeat 定期验证
-
-每 6 小时自动运行 `scripts/verify_announcement.py`：
-
-- 测试 4 种播报类型（receive/task/complete/error）
-- 检查依赖和缓存状态
-- 失败时提醒修复
-
-配置：`HEARTBEAT.md`
 
 ### 3️⃣ 强制规则（AGENTS.md）
 
@@ -330,15 +321,6 @@ set_config(async_default=False, volume=0.8)
 
 ## 📊 监控与维护
 
-### Heartbeat 自动检查
-
-在 `HEARTBEAT.md` 中添加：
-
-```markdown
-# 语音播报自动验证（每 6 小时）
-- [ ] 运行 `scripts/verify_announcement.py` 检查所有播报类型
-- [ ] 如果测试失败，查看日志并修复依赖问题
-```
 
 ### 日志查看
 
@@ -456,7 +438,7 @@ audio-announcement v2.0.8 提供了：
 - ✅ **跨平台支持**（Windows/macOS/Linux）
 - ✅ **PyPI 一键安装**
 - ✅ **配置文件管理**
-- ✅ **防遗忘三重保障**（启动自检 + Heartbeat + 强制规则）
+- ✅ **防遗忘两重保障**（启动自检 + 强制规则）
 - ✅ **Session Hook 自动恢复**
 - ✅ **异步非阻塞播放**
 - ✅ **9种语言支持**
