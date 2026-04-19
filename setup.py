@@ -8,17 +8,17 @@ this_dir = Path(__file__).parent
 long_description = (this_dir / "README.md").read_text(encoding="utf-8") if (this_dir / "README.md").exists() else ""
 
 setup(
-    name="beep-announcement",
+    name="beep-skills",
     version="2.1.0-dev",
     author="miaoweilin (wililam)",
     author_email="uinecn@126.com",
-    description="Beep · 小喇叭 - Make your OpenClaw Agent talk! One-click integration verify.",
+    description="Real-time voice announcements for OpenClaw actions.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/wililam/beep-announcement",
+    url="https://github.com/wililam/beep-skills",
     project_urls={
-        "Bug Reports": "https://github.com/wililam/beep-announcement/issues",
-        "Source": "https://github.com/wililam/beep-announcement",
+        "Bug Reports": "https://github.com/wililam/beep-skills/issues",
+        "Source": "https://github.com/wililam/beep-skills",
         "ClawHub": "https://clawhub.ai/skill/beep-skills",
         "Skill Name": "beep-skills",
     },

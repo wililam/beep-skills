@@ -1,12 +1,24 @@
 {
   "name": "beep-skills",
   "version": "2.1.0-dev",
-  "description": "Beep · 小喇叭 - 让 OpenClaw 开口说话，实时播报 AI 的一举一动。一键验证，听见成功。",
+  "description": "Real-time voice announcements for OpenClaw actions. | 实时语音播报AI的一举一动。",
   "display_name": "Beep · 小喇叭",
   "author": "miaoweilin",
   "license": "MIT",
-  "tags": ["audio", "tts", "announcement", "voice", "broadcast", "beep", "小喇叭"],
-  "capabilities": ["text-to-speech", "workflow-integration", "one-click-verification"],
+  "tags": [
+    "audio",
+    "tts",
+    "announcement",
+    "voice",
+    "broadcast",
+    "beep",
+    "小喇叭"
+  ],
+  "capabilities": [
+    "text-to-speech",
+    "workflow-integration",
+    "one-click-verification"
+  ],
   "changelog": {
     "2.1.0-dev": [
       "🎉 新增：一键集成验证命令 `beep verify-integration`",
@@ -44,10 +56,17 @@
   },
   "requirements": {
     "python": ">=3.9",
-    "packages": ["edge-tts", "pygame"],
+    "packages": [
+      "edge-tts",
+      "pygame"
+    ],
     "platform_packages": {
-      "linux": ["mpg123"],
-      "macos": ["afplay"]
+      "linux": [
+        "mpg123"
+      ],
+      "macos": [
+        "afplay"
+      ]
     }
   },
   "scripts": {

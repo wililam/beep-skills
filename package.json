@@ -1,14 +1,14 @@
 {
   "name": "beep-announcement",
   "version": "2.1.0-dev",
-  "description": "Beep · 小喇叭 - 让 OpenClaw 开口说话，实时播报 AI 的一举一动。一键验证，听见成功。",
+  "description": "Real-time voice announcements for OpenClaw actions. | 实时语音播报AI的一举一动。",
   "display_name": "Beep · 小喇叭",
   "author": "miaoweilin (wililam)",
   "license": "MIT",
-  "homepage": "https://github.com/wililam/beep-announcement",
+  "homepage": "https://github.com/wililam/beep-skills",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wililam/beep-announcement.git"
+    "url": "https://github.com/wililam/beep-skills.git"
   },
   "dependencies": {
     "python": ">=3.9",
@@ -19,35 +19,54 @@
     "windows": {
       "status": "stable",
       "script": "scripts/announce_pygame.py",
-      "dependencies": ["edge-tts", "pygame"],
+      "dependencies": [
+        "edge-tts",
+        "pygame"
+      ],
       "notes": "必须安装 pygame（Windows 无降级方案）"
     },
     "macos": {
       "status": "stable",
       "recommended": true,
       "script": "scripts/announce.sh",
-      "dependencies": ["edge-tts", "pygame (recommended) or afplay"],
+      "dependencies": [
+        "edge-tts",
+        "pygame (recommended) or afplay"
+      ],
       "notes": "优先安装 pygame，否则使用系统 afplay"
     },
     "linux": {
       "status": "stable",
       "recommended": true,
       "script": "scripts/announce.sh",
-      "dependencies": ["edge-tts", "pygame (recommended) or mpg123"],
+      "dependencies": [
+        "edge-tts",
+        "pygame (recommended) or mpg123"
+      ],
       "notes": "优先安装 pygame，否则使用系统 mpg123"
     }
   },
-  "supportedLanguages": ["zh", "en", "ja", "ko", "es", "fr", "de", "ru", "pt"],
+  "supportedLanguages": [
+    "zh",
+    "en",
+    "ja",
+    "ko",
+    "es",
+    "fr",
+    "de",
+    "ru",
+    "pt"
+  ],
   "entryPoints": {
-    "cli": "beep",                      // 新命令
-    "compat": "audio-announce",         // 兼容旧命令
+    "cli": "beep",
+    "compat": "audio-announce",
     "unified": "scripts/announce.py"
   },
   "commands": {
     "beep": {
       "test": "测试所有类型播报",
       "config": "查看/设置配置",
-      "verify-integration": "🎉 一键集成验证（播放测试音+完整报告）",
+      "verify-integration": "一键集成验证（播放测试音+完整报告）",
       "stats": "查看统计信息",
       "enable": "启用播报",
       "disable": "禁用播报",
@@ -70,12 +89,12 @@
     "local-playback",
     "unified-script",
     "volume-control",
-    "one-click-verification",           // 新增
-    "hot-reload-config",                // 新增
-    "lru-cache",                        // 新增
-    "structured-logging",               // 新增
-    "retry-mechanism",                  // 新增
-    "graceful-degradation"              // 新增
+    "one-click-verification",
+    "hot-reload-config",
+    "lru-cache",
+    "structured-logging",
+    "retry-mechanism",
+    "graceful-degradation"
   ],
   "tags": [
     "tts",
@@ -92,7 +111,7 @@
     "pypi",
     "session-hook",
     "local-playback",
-    "one-click-verify"                  // 新增标签
+    "one-click-verify"
   ],
   "minimumOpenClawVersion": "1.0.0",
   "brand": {
@@ -108,32 +127,32 @@
   },
   "changelog": {
     "2.1.0-dev": [
-      "🎉 新增：一键集成验证命令 `beep verify-integration`",
-      "🔧 稳定性增强：重试机制（3次指数退避）、播放降级（pygame→shell→日志）",
-      "⚙️ 配置热重载：`beep config reload` 无需重启应用",
-      "🗑️ LRU 缓存优化：自动清理旧文件，默认保留最新100个",
-      "📝 结构化日志：时间戳+级别+消息，支持DEBUG/INFO/WARNING/ERROR",
-      "📊 运行时统计：缓存大小、成功率、运行时间一目了然",
-      "🐛 修复：配置读取bug、方法缺失、函数名错误、重复定义",
-      "🎨 品牌升级：英文名 Beep，中文名 小喇叭，更易传播"
+      "新增：一键集成验证命令 beep verify-integration",
+      "稳定性增强：重试机制（3次指数退避）、播放降级",
+      "配置热重载：`beep config reload` 无需重启",
+      "LRU 缓存优化：自动清理旧文件",
+      "结构化日志：时间戳+级别+消息",
+      "运行时统计：缓存大小、成功率",
+      "修复：配置读取bug、方法缺失、函数名错误",
+      "品牌升级：Beep · 小喇叭"
     ],
     "2.0.8": [
-      "✅ 播报本地化 - 所有播报仅在本机后台播放，不发送语音文件到聊天",
-      "✅ 统一包装脚本 - scripts/announce.py 自动解析 skill 路径",
-      "✅ 默认音量优化 - 配置文件默认 volume=0.1（10%）",
-      "✅ CLI 工具修复 - 修复 pygame 导入问题，提升 Windows 稳定性",
-      "✅ 文档全面升级 - MEMORY.md / AGENTS.md / TOOLS.md 统一管理"
+      "播报本地化",
+      "统一包装脚本",
+      "默认音量优化",
+      "CLI 工具修复",
+      "文档全面升级"
     ],
     "2.0.7": [
-      "✅ PyPI 支持 - pip install beep-announcement",
-      "✅ 配置文件系统 - ~/.config/audio-announcement/config.json",
-      "✅ 异步默认化 - 默认后台播放，减少阻塞",
-      "✅ CLI 工具 - audio-announce/beep 命令支持测试、配置、统计"
+      "PyPI 支持",
+      "配置文件系统",
+      "异步默认化",
+      "CLI 工具"
     ],
     "2.0.6": [
-      "✅ 防遗忘机制 - 启动自检 + 身份绑定",
-      "✅ 快速集成指南 - announce_helper.py 简化集成",
-      "✅ 强制规则模板 - 可直接复制到 AGENTS.md"
+      "防遗忘机制",
+      "快速集成指南",
+      "强制规则模板"
     ]
   }
 }

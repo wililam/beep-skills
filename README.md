@@ -1,21 +1,20 @@
-# beep-skills Skill 🔔
+# beep-skills
 
 <div align="center">
 
 ![Version](https://img.shields.io/badge/version-2.1.0--dev-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey.svg)
-![Command](https://img.shields.io/badge/command-beep-ff6600.svg)
+![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows%20%7C%20Android-lightgrey.svg)
 
 # 🔔 Beep · 小喇叭 | 让电脑会说话
 
-**一键集成验证，让 AI 开口告诉你它在做什么。**
+**Hear what your AI agent is doing in real-time. Stay informed, stay safe.**
 
-不再是冷冰冰的日志，而是一个贴心的小喇叭，实时播报每一步操作。
+**实时语音播报AI的一举一动，让你更安心、更放心。**
 
-*"收到消息"* • *"正在处理"* • *"任务完成"* • *"遇到问题"*
+*"I'm generating your report..."* • *"Task completed!"* • *"I need your permission..."*
 
----
+不再是一只多嘴的龙虾，而是一个贴心的小喇叭 🔔
 
 [English](#english) | [中文](#中文)
 
@@ -28,91 +27,69 @@
 
 ### Why Beep?
 
-Your AI agent shouldn't be silent. With **Beep · 小喇叭**, OpenClaw becomes a talkative companion that keeps you informed in real-time:
+Your AI agent shouldn't be a black box. With this skill, OpenClaw becomes a **talkative companion** that keeps you informed:
 
-- 🎯 **One-Click Verification**: `beep verify-integration` confirms everything works
-- 🔔 **Clear Audio Cues**: Hear exactly what the AI is doing
-- 💬 **Human-Friendly**: A friendly voice, not cold logs
-- ⚡ **Non-Blocking**: Async by default, won't slow you down
+- 🎯 **Transparency**: Know exactly what your AI is doing
+- 🔒 **Security Feel**: Hear actions in real-time, no need to watch logs
+- 💬 **Human Touch**: A friendly voice, not cold text
+- ⚡ **Efficiency**: Focus on your work, let the beep tell you
 
 ### Features
 
-- ✅ **One-Click Integration Verify**: Install → run `beep verify-integration` → hear test sounds
-- ✅ **4 Platform Support**: Windows, macOS, Linux (pygame-based, reliable)
-- ✅ **9 Languages**: Chinese, English, Japanese, Korean, Spanish, French, German, and more
-- ✅ **Smart Retry**: Network issues? 3 retries with exponential backoff
-- ✅ **Graceful Degradation**: pygame → system player → log-only fallback
-- ✅ **Hot Reload**: Change config without restarting
-- ✅ **LRU Cache**: Auto-cleanup old audio files (keep last 100)
-- ✅ **Structured Logging**: Timestamp, level, message for easy debugging
+- 🌍 **9 Languages**: Chinese, English, Japanese, Korean, Spanish, French, German
+- 💻 **4 Platforms**: macOS, Linux, Windows, Android
+- 🔔 **One-Click Verify**: `beep verify-integration` confirms everything works
+- 🔄 **Queue System**: Messages never lost, auto-retry on failure
+- 🦊 **Human-Friendly**: Make your AI feel safer and more approachable
 
 ### Installation
 
+#### Method 1: ClawHub (Recommended)
+
 ```bash
-# Method 1: PyPI (Recommended)
-pip install beep-announcement pygame
+# Install from ClawHub
+clawhub install beep-skills
 
-# Method 2: ClawHub
-clawhub install beep
-
-# Method 3: GitHub
-git clone https://github.com/wililam/beep-announcement.git
-cd beep-announcement && pip install -e .
+# Install dependencies
+pip install edge-tts pygame
 ```
 
-### Quick Start
+#### Method 2: Manual Install
 
 ```bash
-# 1️⃣ 一键验证集成（强烈推荐！）
+# Clone
+git clone https://github.com/wililam/beep-skills.git
+
+# Copy to your skills
+cp -r beep-skills ~/.openclaw/skills/beep-skills
+```
+
+### Usage
+
+```bash
+# One-click verify (recommended first step)
 beep verify-integration
-# → 听到4种测试声音，看到完整报告
 
-# 2️⃣ 配置
-beep config async_default=true volume=0.25
-
-# 3️⃣ 测试
+# Test all types
 beep test
-
-# 4️⃣ 在你的 Agent 中使用
-from beep import receive, task, complete, error
-
-receive("用户查询天气")
-task("正在获取数据")
-complete("已发送天气预报")
-error("网络超时")
 ```
 
-### Commands
+**macOS / Linux:**
+```bash
+# The beep speaks Chinese
+./announce.sh complete "任务完成" zh
 
-| Command | Description |
-|---------|-------------|
-| `beep test` | Test all 4 announcement types |
-| `beep config` | View/set configuration |
-| `beep verify-integration` | **One-click integration verify** (new!) |
-| `beep stats` | Show statistics |
-| `beep enable` / `disable` | Enable/disable announcements |
-| `beep check` | Run environment check |
-
-**Backward Compatible**: `audio-announce` command still works (same functionality).
-
-### Configuration
-
-Config file: `~/.config/audio-announcement/config.json`
-
-```json
-{
-  "enabled": true,
-  "default_lang": "zh",
-  "volume": 0.25,
-  "async_default": true,
-  "log_level": "WARNING"
-}
+# The beep speaks English
+./announce.sh complete "Task finished" en
 ```
 
-Change at runtime:
-```python
-from beep import set_config
-set_config(volume=0.8, async_default=False)
+**Windows (Recommended - PyGame):**
+```powershell
+# Install PyGame for best Windows 11 support
+pip install pygame
+
+# v1.5.0+: announce.sh auto-detects Windows and uses pygame
+./announce.sh complete "任务完成" zh
 ```
 
 ---
@@ -120,205 +97,144 @@ set_config(volume=0.8, async_default=False)
 <a name="中文"></a>
 ## 🇨🇳 中文
 
-### 为什么选择 Beep · 小���叭？
+### 为什么需要一个小喇叭？
 
-- 🔔 **品牌上口**：Beep（4字母）+ 小喇叭（3个字），小学生都能读
-- ✅ **一键验证**：安装后运行 `beep verify-integration`，听到声音就成功
-- 🎯 **功能完整**：重试、降级、热重载、LRU缓存、结构化日志
-- 🛡️ **防遗忘机制**：启动自检 + 强制规则，永远不会漏播
+AI 不应该是一个"黑盒"。有了这个技能，OpenClaw 变成了一个**贴心的小喇叭**：
 
-### 核心特性
+- 🎯 **透明度**：清楚知道 AI 在做什么
+- 🔒 **安全感**：实时听到操作，不用盯着日志看
+- 💬 **人性化**：朋友般的声音，不是冷冰冰的文字
+- ⚡ **效率**：专注你的工作，让小喇叭用声音告诉你进度
 
-| 特性 | 说明 |
-|------|------|
-| 🎉 一键集成验证 | `beep verify-integration` 播放4种测试音，输出完整报告 |
-| 🔄 智能重试 | 网络失败自动重试3次（指数退避 1s→2s→4s） |
-| ⬇️ 播放降级 | pygame → 系统播放器 → 仅日志（保证核心功能） |
-| 🔄 热重载配置 | 修改配置无需重启，`beep config reload` 立即生效 |
-| 🗑️ 自动清理 | LRU 缓存策略，自动删除旧文件（保留最新100个） |
-| 📊 结构化日志 | 时间戳+级别+消息，支持 DEBUG/INFO/WARNING/ERROR |
-| 📈 运行时统计 | 缓存大小、成功率、运行时间一目了然 |
-| 🐛 异常追踪 | `exc_info=True`，完整堆栈便于调试 |
+### 特性
 
-### 安装与验证
+- 🌍 **9种语言**：中文、英文、日文、韩文、西班牙语、法语、德语
+- 💻 **4个平台**：macOS、Linux、Windows、Android
+- 🔔 **一键验证**：`beep verify-integration` 确认一切正常
+- 🔄 **队列机制**：消息永不丢失，自动重试
+- 🦊 **人性化**：让你的 AI 更安全、更亲切
+
+### 安装方式
+
+#### 方式一：ClawHub 安装（推荐）
 
 ```bash
-# 1. 安装
-pip install beep-announcement pygame
+# 从 ClawHub 安装
+clawhub install beep-skills
 
-# 2. 一键验证（最重要的一步！）
+# 安装依赖
+pip install edge-tts pygame
+```
+
+#### 方式二：手动安装
+
+```bash
+# 克隆
+git clone https://github.com/wililam/beep-skills.git
+
+# 复制到 skills 目录
+cp -r beep-skills ~/.openclaw/skills/beep-skills
+```
+
+### 使用方法
+
+```bash
+# 一键验证（推荐第一步）
 beep verify-integration
 
-# 预期输出：
-# ============================================================
-# Beep · 小喇叭 集成验证 v2.1.0-dev
-# ============================================================
-# 📦 依赖检查
-#   ✅ pygame 2.6.1
-#   ✅ edge-tts 7.2.8
-#   ✅ Python 3.13.12
-#
-# 🔊 功能测试
-#   ▶️  测试 receive... ✅ 成功
-#   ▶️  测试 task... ✅ 成功
-#   ▶️  测试 complete... ✅ 成功
-#   ▶️  测试 error... ✅ 成功
-#
-# 🎉 所有检查通过！语音播报系统已成功集成。
-# ============================================================
+# 测试所有类型
+beep test
 ```
 
-听到测试声音 + 看到成功消息 = 集成成功！
-
-### 命令速查
+**推荐：使用统一包装脚本（避免硬编码路径）**
 
 ```bash
-# 测试
-beep test                           # 测试所有类型
-beep verify-integration             # 一键验证（新增！）
-
-# 配置
-beep config                         # 查看当前配置
-beep config volume=0.5              # 设置音量
-beep config async_default=true      # 设置异步播放
-beep config reload                  # 热重载配置
-
-# 统计与检查
-beep stats                          # 查看统计
-beep check                          # 环境自检
-
-# 启用/禁用
-beep enable                         # 启用播报
-beep disable                        # 禁用播报
+# 从工作区直接调用
+python scripts/announce.py receive "收到上传指令" zh
+python scripts/announce.py task "正在生成文档" zh
+python scripts/announce.py complete "任务完成" zh
+python scripts/announce.py error "网络异常" zh
 ```
 
-### Python 集成
+该脚本自动解析 skill 安装路径，无需关心具体位置。
 
-```python
-from beep import receive, task, complete, error
+**备选：直接调用平台脚本**
 
-# 最简单的方式（一行调用，异步非阻塞）
-receive("用户提交报告")
-task("正在分析数据")
-complete("分析完成")
-error("网络连接失败")
+**macOS / Linux:**
+```bash
+# 使用 shell 脚本（自动选择最佳方案）
+./scripts/announce.sh complete "任务完成" zh
 
-# 高级控制
-from beep import AnnouncementHelper
-helper = AnnouncementHelper()
-helper.config.volume = 0.8
-helper.config.async_default = False  # 同步播放
-helper.receive("重要消息")
+# 或直接使用 pygame 方案
+python scripts/announce_pygame.py complete "任务完成" zh
 ```
 
-### 强制播报规则
+**Windows (推荐 - PyGame):**
+```powershell
+# 安装 PyGame（Windows 11 最佳方案）
+pip install pygame
 
-**每次交互都必须播报！** 这是 OpenClaw 的核心要求。
-
-| 时机 | 类型 | 内容示例（≤20字） |
-|------|------|-------------------|
-| 收到消息 | receive | "收到上传指令" |
-| 开始工作 | task | "准备生成报告" |
-| 执行中 | task | "正在下载文件" |
-| 完成任务 | complete | "上传完成" |
-| 发送回复 | complete | "已发送项目地址" |
-| 遇到异常 | error | "网络超时" |
-
-**内容原则**：简洁、口语化、不带用户名、信息丰富。
+# 使用 pygame 方案（最稳定）
+python scripts/announce_pygame.py complete "任务完成" zh
+```
 
 ---
 
-## 📁 项目结构
+## 🔔 强制语音播报
+
+**每次交互都必须语音播报！**
+
+### 播报时机
+
+| 时机 | 类型 | 示例 |
+|------|------|------|
+| 收到消息 | `receive` | "收到上传指令" |
+| 开始工作 | `task` | "准备上传到GitHub" |
+| 执行中 | `task` | "正在生成文档" |
+| 任务完成 | `complete` | "上传完成" |
+| 发送回复 | `complete` | "已发送项目地址" |
+| 发生错误 | `error` | "连接超时" |
+
+### 内容原则
+
+- **简洁**：不超过 20 个字
+- **口语化**：像朋友随口说一句
+- **不带名称**：不说用户名、不说"我"
+- **信息丰富**：包含指令/规划/进度/总结
+
+### 安装后配置
+
+安装此技能后，需要将强制播报内容添加到工作区的 `AGENTS.md` 文件中，详见 [SKILL.md](SKILL.md)。
+
+---
+
+## 📁 Project Structure
 
 ```
-beep/                          # 技能目录（新名称）
-├── SKILL.md                   # 详细使用文档
-├── README.md                  # 本文件（品牌已更新）
-├── _meta.json                 # 技能元数据（已更新）
+beep-skills/
+├── README.md
+├── SKILL.md              # 详细使用文档
+├── LICENSE
 ├── package.json
-├── version.txt                # 当前版本：2.1.0-dev
-├── requirements.txt
-├── setup.py                   # PyPI 打包配置
-│
-├── audio_announcement/        # Python 包（保持原名，向后兼容）
+├── version.txt
+├── beep                  # CLI wrapper (Unix)
+├── beep.bat              # CLI wrapper (Windows)
+├── audio_announcement/   # Python 包（向后兼容）
 │   ├── __init__.py
-│   ├── __main__.py            # CLI 入口（已更新支持 verify-integration）
-│   ├── announce_helper.py     # 核心逻辑（已优化 v2.1.0）
-│   ├── announce_pygame.py     # pygame 播放器（已修复配置读取）
+│   ├── announce_helper.py
+│   ├── cli.py
 │   └── scripts/
-│       ├── announce.py        # 统一包装脚本
-│       ├── announce_pygame.py  # Windows  pygame 方案
-│       ├── startup_check_announcement.py  # 启动自检
-│       └── verify_integration.py  # 新增：一键验证脚本
-│
-├── docs/                      # 文档
-│   └── audio-announcement-learning.md
-│
-└── scripts/                   # 工作区脚本
-    └── verify_announcement.py # 完整验证脚本
+│       ├── announce_pygame.py
+│       ├── announce.sh
+│       └── announce-offline.sh
+└── scripts/
+    ├── announce.py           # 统一包装脚本
+    └── startup_check_announcement.py
 ```
 
----
+## 📝 License
 
-## 🔧 故障排除
-
-### 没有声音？
-
-1. 检查系统音量
-2. 确认 pygame 安装：`python -c "import pygame; print(pygame.version.ver)"`
-3. 测试 edge-tts：`edge-tts --text "测试" --voice zh-CN-XiaoxiaoNeural --write-media test.mp3`
-4. 手动播放 test.mp3
-
-### 播报延迟？
-
-- 首次使用有缓存延迟（下载语音包）
-- 使用 `async_default=true` 异步播放
-- 检查网络连接
-
-### /RESET 后失效？
-
-- 确认 `startup_check_announcement.py` 已配置自动运行
-- 手动运行：`python scripts/startup_check_announcement.py`
-- 检查 AGENTS.md 和 IDENTITY.md
-
----
-
-## 📈 版本历史
-
-### v2.1.0-dev（开发中）
-- 🎉 新增 `verify-integration` 一键验证命令
-- 🔧 稳定性增强（重试、降级、热重载、LRU 缓存）
-- 📝 结构化日志与运行时统计
-- 🐛 修复多个 bug（配置读取、方法缺失等）
-- 🎨 品牌升级：Beep · 小喇叭
-
-### v2.0.8（生产稳定）
-- ✅ 播报本地化（不发送语音文件到聊天）
-- ✅ 统一包装脚本（announce.py）
-- ✅ 默认音量 10%
-- ✅ 防遗忘两重保障
-
-### v2.0.6-v2.0.7
-- ✅ PyPI 发布
-- ✅ 配置文件系统
-- ✅ 异步默认化
-- ✅ CLI 工具
-
----
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 PR！
-
-发现漏播场景？需要更多集成示例？告诉我们！
-
----
-
-## 📄 License
-
-MIT License - 详见 [LICENSE](LICENSE) 文件
-
----
+MIT License - see [LICENSE](LICENSE) file.
 
 ## 👤 Author
 
@@ -328,18 +244,10 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 
 <div align="center">
 
-# 🔔 **Beep · 小喇叭** - 让电脑会说话！
+**🔔 让你的电脑开口说话，让你更安心！**
 
-**安装 → 验证 → 使用，三步搞定！**
+**Make your agent talk, make yourself feel safer!**
 
-```bash
-pip install beep-announcement pygame
-beep verify-integration
-from beep import receive, task, complete, error
-```
-
-**你的 AI，现在有声音了！** 🎉
-
-⭐ 如果这个工具对你有帮助，请给我们一个 Star！ ⭐
+⭐ If this helped you, give it a star! ⭐
 
 </div>
