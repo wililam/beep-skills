@@ -9,7 +9,7 @@ long_description = (this_dir / "README.md").read_text(encoding="utf-8") if (this
 
 setup(
     name="beep-skills",
-    version="2.1.0-dev",
+    version="2.2.0",
     author="miaoweilin (wililam)",
     author_email="uinecn@126.com",
     description="Real-time voice announcements for OpenClaw actions.",
