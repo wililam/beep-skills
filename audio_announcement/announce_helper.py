@@ -80,7 +80,7 @@ class AnnouncementConfig:
     """播报配置（带验证）"""
     enabled: bool = True
     default_lang: str = "zh"
-    volume: float = 0.1  # 默认 10%，保护听力
+    volume: float = 0.3  # 默认 10%，保护听力
     async_default: bool = True
     cache_enabled: bool = True
     log_level: str = "INFO"  # 提高默认日志级别
@@ -511,12 +511,12 @@ def _fallback_announce(type_: str, message: str, lang: str, async_: bool) -> boo
     """
     # 添加类型前缀
     PREFIXES = {
-        "task": "🔊 任务",
-        "complete": "🔊 完成",
-        "error": "🔊 警告",
-        "receive": "🔊 收到",
+        "task": "[ICON] 任务",
+        "complete": "[ICON] 完成",
+        "error": "[ICON] 警告",
+        "receive": "[ICON] 收到",
     }
-    prefix = PREFIXES.get(type_, "🔊")
+    prefix = PREFIXES.get(type_, "[ICON]")
     logger.info(f"{prefix}: {message} (语音播放失败，已降级为日志)")
     return True  # 静默成功，不影响主流程
 
@@ -664,15 +664,15 @@ class EnvironmentChecker:
         if results["issues"]:
             logger.error("【严重问题】")
             for issue in results["issues"]:
-                logger.error(f"  ❌ {issue}")
+                logger.error(f"  [FAIL] {issue}")
         
         if results["warnings"]:
             logger.warning("【警告】")
             for warning in results["warnings"]:
-                logger.warning(f"  ⚠️ {warning}")
+                logger.warning(f"  [WARN]️ {warning}")
         
         if not results["issues"] and not results["warnings"]:
-            logger.info("✅ 环境检查通过，所有功能正常")
+            logger.info("[OK] 环境检查通过，所有功能正常")
 
 # ============ 高级助手类 ============
 class AnnouncementHelper:
@@ -788,7 +788,7 @@ if __name__ == "__main__":
     helper.reload_config()
     print(f"   重载后音量: {helper.config.volume}")
     
-    print("\n✅ 测试完成")
+    print("\n[OK] 测试完成")
 
 # ============ 集成验证 ============
 
