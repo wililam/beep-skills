@@ -1,4 +1,4 @@
-"""audio-announcement: Make your OpenClaw Agent talk!"""
+"""beep-skills: Make your OpenClaw Agent talk!"""
 
 from setuptools import setup, find_packages
 from pathlib import Path
@@ -8,18 +8,19 @@ this_dir = Path(__file__).parent
 long_description = (this_dir / "README.md").read_text(encoding="utf-8") if (this_dir / "README.md").exists() else ""
 
 setup(
-    name="audio-announcement",
-    version="2.0.8",
+    name="beep-announcement",
+    version="2.1.0-dev",
     author="miaoweilin (wililam)",
     author_email="uinecn@126.com",
-    description="Make your OpenClaw Agent talk! Real-time voice announcements for AI actions.",
+    description="Beep · 小喇叭 - Make your OpenClaw Agent talk! One-click integration verify.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/wililam/audio-announcement-skills",
+    url="https://github.com/wililam/beep-announcement",
     project_urls={
-        "Bug Reports": "https://github.com/wililam/audio-announcement-skills/issues",
-        "Source": "https://github.com/wililam/audio-announcement-skills",
-        "ClawHub": "https://clawhub.ai/skill/audio-announcement",
+        "Bug Reports": "https://github.com/wililam/beep-announcement/issues",
+        "Source": "https://github.com/wililam/beep-announcement",
+        "ClawHub": "https://clawhub.ai/skill/beep-skills",
+        "Skill Name": "beep-skills",
     },
     packages=find_packages(include=["audio_announcement", "audio_announcement.*"]),
     include_package_data=True,
@@ -27,8 +28,8 @@ setup(
         "audio_announcement": ["scripts/*.py", "scripts/*.sh"],
     },
     install_requires=[
-        "edge-tts>=6.1.3",
-        "pygame>=2.0.0; platform_system=='Windows'",
+        "edge-tts>=7.2.8",
+        "pygame>=2.6.1; platform_system=='Windows'",
     ],
     extras_require={
         "dev": ["pytest", "black"],
@@ -39,19 +40,19 @@ setup(
         "Topic :: Utilities",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.9",
     entry_points={
         "console_scripts": [
-            "audio-announce=audio_announcement.cli:main",
+            "beep=audio_announcement.cli:main",           # 新命令（推荐）
+            "audio-announce=audio_announcement.cli:main", # 向后兼容
         ],
     },
-    keywords=["openclaw", "tts", "text-to-speech", "announcement", "voice", "audio"],
+    keywords=["openclaw", "tts", "text-to-speech", "announcement", "voice", "audio", "beep", "小喇叭", "one-click-verify"],
 )

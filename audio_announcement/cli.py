@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-audio-announcement CLI
+Beep · 小喇叭 CLI
 提供便捷的命令行接口来测试和管理语音播报
+
+命令名：beep（推荐）或 audio-announce（向后兼容）
 """
 
 import sys
@@ -15,28 +17,37 @@ if str(package_dir) not in sys.path:
 
 from audio_announcement import announce, receive, task, complete, error, AnnouncementHelper, __version__
 
+# 检测命令名（用于显示和兼容性）
+PROG_NAME = Path(sys.argv[0]).name if sys.argv else "beep"
+
 def print_usage():
-    print(f"audio-announcement v{__version__}")
-    print("用法:")
-    print("  audio-announce <type> <message> [lang]")
-    print("  或:")
-    print("  audio-announce test             # 测试所有类型")
-    print("  audio-announce config [key=value]...  # 查看/设置配置")
-    print("  audio-announce stats           # 查看统计")
-    print("  audio-announce enable|disable  # 启用/禁用")
+    print(f"Beep · 小喇叭 v{__version__}")
+    print(f"Command: {PROG_NAME}")
     print()
-    print("类型:")
-    print("  receive   - 收到消息")
-    print("  task      - 任务开始")
-    print("  complete  - 任务完成")
-    print("  error     - 错误警告")
+    print("Usage:")
+    print(f"  {PROG_NAME} <type> <message> [lang]")
+    print(f"  {PROG_NAME} test                   # Test all announcement types")
+    print(f"  {PROG_NAME} verify-integration      # One-click integration verify (NEW!)")
+    print(f"  {PROG_NAME} config [key=value]      # View/set configuration")
+    print(f"  {PROG_NAME} config reload           # Hot-reload config file")
+    print(f"  {PROG_NAME} stats                   # Show runtime statistics")
+    print(f"  {PROG_NAME} enable|disable          # Enable/disable announcements")
+    print(f"  {PROG_NAME} check                   # Run environment self-check")
+    print(f"  {PROG_NAME} version                 # Show version")
     print()
-    print("语言:")
-    print("  zh (中文), en (英文), ja (日文), ko (韩文), es (西班牙文), fr (法文), de (德文)")
+    print("Types:")
+    print("  receive   - Message received")
+    print("  task      - Task started")
+    print("  complete  - Task completed")
+    print("  error     - Error warning")
     print()
-    print("示例:")
-    print("  audio-announce receive '收到上传指令' zh")
-    print("  audio-announce test")
+    print("Languages:")
+    print("  zh (Chinese), en (English), ja (Japanese), ko (Korean), es (Spanish), fr (French), de (German)")
+    print()
+    print("Examples:")
+    print(f"  {PROG_NAME} receive '收到上传指令' zh")
+    print(f"  {PROG_NAME} test")
+    print(f"  {PROG_NAME} verify-integration")
 
 def main():
     if len(sys.argv) < 2:
@@ -55,6 +66,12 @@ def main():
         print("\n测试完成！")
         return 0
     
+    elif cmd == "verify-integration":
+        # 🎉 新增：一键集成验证
+        from audio_announcement.announce_helper import verify_integration
+        success = verify_integration()
+        return 0 if success else 1
+    
     elif cmd == "config":
         # 查看/设置配置
         helper = AnnouncementHelper()
@@ -62,6 +79,11 @@ def main():
             print("当前配置:")
             for k, v in helper.config.__dict__.items():
                 print(f"  {k}: {v}")
+            return 0
+        elif sys.argv[2] == "reload":
+            # 热重载配置
+            helper.reload_config()
+            print("配置已热重载")
             return 0
         else:
             # 设置配置 key=value
@@ -94,6 +116,16 @@ def main():
         else:
             helper.disable()
             print("语音播报已禁用")
+        return 0
+    
+    elif cmd == "check":
+        # 运行环境自检
+        helper = AnnouncementHelper()
+        print("环境自检完成（结果已在上方输出）")
+        return 0
+    
+    elif cmd == "version" or cmd == "--version":
+        print(f"Beep · 小喇叭 v{__version__}")
         return 0
     
     elif cmd == "stats":

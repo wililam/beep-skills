@@ -1,54 +1,58 @@
 {
-  "name": "audio-announcement",
-  "version": "2.0.8",
-  "description": "让 OpenClaw 开口说话，实时播报 AI 的一举一动。支持 9 种语言，完整支持 Windows 11。提供透明度、安全感和人性化体验。",
+  "name": "beep-announcement",
+  "version": "2.1.0-dev",
+  "description": "Beep · 小喇叭 - 让 OpenClaw 开口说话，实时播报 AI 的一举一动。一键验证，听见成功。",
+  "display_name": "Beep · 小喇叭",
   "author": "miaoweilin (wililam)",
   "license": "MIT",
-  "homepage": "https://github.com/wililam/audio-announcement-skills",
+  "homepage": "https://github.com/wililam/beep-announcement",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wililam/audio-announcement-skills.git"
+    "url": "https://github.com/wililam/beep-announcement.git"
   },
   "dependencies": {
-    "python": ">=3.7",
-    "edge-tts": ">=6.1.3",
-    "pygame": "recommended (required for consistent cross-platform experience)",
-    "ffmpeg": "optional (fallback for Linux/macOS)"
+    "python": ">=3.9",
+    "edge-tts": ">=7.2.8",
+    "pygame": ">=2.6.1 (required for Windows, recommended for all platforms)"
   },
   "platforms": {
     "windows": {
       "status": "stable",
       "script": "scripts/announce_pygame.py",
-      "altScripts": ["scripts/announce.bat", "scripts/announce.ps1"],
       "dependencies": ["edge-tts", "pygame"],
-      "notes": "必须安装 pygame 以获得最佳体验"
+      "notes": "必须安装 pygame（Windows 无降级方案）"
     },
     "macos": {
       "status": "stable",
       "recommended": true,
       "script": "scripts/announce.sh",
-      "dependencies": ["edge-tts", "pygame (recommended) or afplay/ffmpeg"],
-      "notes": "优先安装 pygame，否则依赖系统播放器"
+      "dependencies": ["edge-tts", "pygame (recommended) or afplay"],
+      "notes": "优先安装 pygame，否则使用系统 afplay"
     },
     "linux": {
       "status": "stable",
       "recommended": true,
       "script": "scripts/announce.sh",
-      "dependencies": ["edge-tts", "pygame (recommended) or mpg123/ffmpeg"],
-      "notes": "优先安装 pygame，否则依赖系统播放器"
-    },
-    "android": {
-      "status": "experimental",
-      "script": "scripts/announce.sh",
-      "dependencies": ["termux", "edge-tts"]
+      "dependencies": ["edge-tts", "pygame (recommended) or mpg123"],
+      "notes": "优先安装 pygame，否则使用系统 mpg123"
     }
   },
-  "supportedLanguages": ["zh", "en", "ja", "ko", "es", "fr", "de"],
+  "supportedLanguages": ["zh", "en", "ja", "ko", "es", "fr", "de", "ru", "pt"],
   "entryPoints": {
-    "macos": "scripts/announce.sh",
-    "linux": "scripts/announce.sh",
-    "windows": "scripts/announce_pygame.py",
+    "cli": "beep",                      // 新命令
+    "compat": "audio-announce",         // 兼容旧命令
     "unified": "scripts/announce.py"
+  },
+  "commands": {
+    "beep": {
+      "test": "测试所有类型播报",
+      "config": "查看/设置配置",
+      "verify-integration": "🎉 一键集成验证（播放测试音+完整报告）",
+      "stats": "查看统计信息",
+      "enable": "启用播报",
+      "disable": "禁用播报",
+      "check": "运行环境自检"
+    }
   },
   "capabilities": [
     "text-to-speech",
@@ -57,7 +61,6 @@
     "multi-language",
     "cross-platform",
     "windows-11-support",
-    "path-independent",
     "anti-forgetting",
     "configurable",
     "async-playback",
@@ -66,18 +69,71 @@
     "heartbeat-monitoring",
     "local-playback",
     "unified-script",
-    "volume-control"
+    "volume-control",
+    "one-click-verification",           // 新增
+    "hot-reload-config",                // 新增
+    "lru-cache",                        // 新增
+    "structured-logging",               // 新增
+    "retry-mechanism",                  // 新增
+    "graceful-degradation"              // 新增
   ],
-  "tags": ["tts", "audio", "announcement", "transparency", "voice", "speech", "windows", "pygame", "anti-forgetting", "pypi", "session-hook", "local-playback"],
+  "tags": [
+    "tts",
+    "audio",
+    "announcement",
+    "beep",
+    "小喇叭",
+    "voice",
+    "speech",
+    "transparency",
+    "windows",
+    "pygame",
+    "anti-forgetting",
+    "pypi",
+    "session-hook",
+    "local-playback",
+    "one-click-verify"                  // 新增标签
+  ],
   "minimumOpenClawVersion": "1.0.0",
+  "brand": {
+    "english_name": "Beep",
+    "chinese_name": "小喇叭",
+    "full_name": "Beep · 小喇叭",
+    "slogan": "让电脑会说话",
+    "slogan_en": "Make your computer talk",
+    "pronunciation": {
+      "en": "/biːp/",
+      "zh": "/xiǎo lǎ ba/"
+    }
+  },
   "changelog": {
-    "2.0.8": "播报本地化 + 统一脚本 + 音量优化：仅本地播放、announce.py 统一入口、默认音量 10%、CLI 修复、文档全面升级",
-    "2.0.7": "高优先级优化：PyPI 打包支持、配置文件系统、异步默认化、CLI 工具、跨平台自动检测",
-    "2.0.6": "增强防遗忘机制：添加验证脚本、heartbeat 自动检查、集成检查清单、快速集成指南",
-    "2.0.5": "修复 PATH 依赖问题，使用 python -m edge_tts 模块调用，Windows 高可靠性",
-    "2.0.4": "强化播报规则，集成到核心配置，强制执行机制，内容规范",
-    "1.4.0": "Windows 11 完整支持，新增 announce_pygame.py，无需 WMP",
-    "1.3.1": "修复新会话语音、macOS 兼容性、跨平台哈希计算",
-    "1.2.0": "初始稳定版本"
+    "2.1.0-dev": [
+      "🎉 新增：一键集成验证命令 `beep verify-integration`",
+      "🔧 稳定性增强：重试机制（3次指数退避）、播放降级（pygame→shell→日志）",
+      "⚙️ 配置热重载：`beep config reload` 无需重启应用",
+      "🗑️ LRU 缓存优化：自动清理旧文件，默认保留最新100个",
+      "📝 结构化日志：时间戳+级别+消息，支持DEBUG/INFO/WARNING/ERROR",
+      "📊 运行时统计：缓存大小、成功率、运行时间一目了然",
+      "🐛 修复：配置读取bug、方法缺失、函数名错误、重复定义",
+      "🎨 品牌升级：英文名 Beep，中文名 小喇叭，更易传播"
+    ],
+    "2.0.8": [
+      "✅ 播报本地化 - 所有播报仅在本机后台播放，不发送语音文件到聊天",
+      "✅ 统一包装脚本 - scripts/announce.py 自动解析 skill 路径",
+      "✅ 默认音量优化 - 配置文件默认 volume=0.1（10%）",
+      "✅ CLI 工具修复 - 修复 pygame 导入问题，提升 Windows 稳定性",
+      "✅ 文档全面升级 - MEMORY.md / AGENTS.md / TOOLS.md 统一管理"
+    ],
+    "2.0.7": [
+      "✅ PyPI 支持 - pip install beep-announcement",
+      "✅ 配置文件系统 - ~/.config/audio-announcement/config.json",
+      "✅ 异步默认化 - 默认后台播放，减少阻塞",
+      "✅ CLI 工具 - audio-announce/beep 命令支持测试、配置、统计"
+    ],
+    "2.0.6": [
+      "✅ 防遗忘机制 - 启动自检 + 身份绑定",
+      "✅ 快速集成指南 - announce_helper.py 简化集成",
+      "✅ 强制规则模板 - 可直接复制到 AGENTS.md"
+    ]
   }
 }

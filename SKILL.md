@@ -1,143 +1,76 @@
-# Audio Announcement Skill 🦊
+# beep-skills Skill 🔔
 
 让 OpenClaw 开口说话，实时播报 AI 的一举一动！
 
 ## 概述
 
-这是一个语音播报技能，可以让你的 AI 代理通过语音实时告诉你它在做什么。就像一只爱说话的龙虾，让你更清楚、更安心地知道 AI 的当前状态。
+这是一个语音播报技能，可以让你的 AI 代理通过语音实时告诉你它在做什么。就像一个小喇叭，让你更清楚、更安心地知道 AI 的当前状态。
 
-**版本**: 2.0.8  
+**版本**: 2.1.0-dev  
 **状态**: ✅ 生产就绪  
-**安装**: `clawhub install audio-announcement` 或 `pip install audio-announcement`
-
-### 🎯 最新更新 (v2.0.8 - 2026-04-05)
-- ✅ **播报本地化** - 所有播报仅在本机后台播放，不发送语音文件到聊天界面
-- ✅ **统一包装脚本** - 新增 `scripts/announce.py`，自动解析 skill 路径，避免硬编码
-- ✅ **默认音量优化** - 配置文件默认 `volume: 0.1`（10%），保护听力避免打扰
-- ✅ **CLI 工具修复** - 修复 pygame 导入问题，提升 Windows 稳定性
-- ✅ **文档全面升级** - MEMORY.md / AGENTS.md / TOOLS.md 统一管理播报工作流
-- ✅ **会话复盘机制** - 建立复盘流程，持续改进
-- ✅ **安全边界强化** - 破坏性操作（关机）必须明确授权
-
-### 🎯 最新更新 (v2.0.7 - 2026-04-05)
-- ✅ **高优先级优化完成** - PyPI 打包支持、配置文件系统、异步默认化
-- ✅ **PyPI 支持** - 可通过 `pip install audio-announcement` 安装
-- ✅ **配置文件** - `~/.config/audio-announcement/config.json`（enabled/lang/volume/async_default）
-- ✅ **异步默认** - 默认后台播放，减少对 Agent 响应时间的阻塞
-- ✅ **CLI 工具** - `audio-announce` 命令支持测试、配置、统计
-- ✅ **集成建议更新** - AGENTS.md 添加最佳实践和示例代码
-
-### 🎯 最新更新 (v2.0.6 - 2026-04-05)
-- ✅ **增强防遗忘机制** - 添加验证脚本、集成检查清单
-- ✅ **快速集成指南** - 提供 announce_helper.py 简化集成
-- ✅ **强制规则模板** - 可直接复制到 AGENTS.md 的完整规则
-- ✅ **Windows 高可靠性** - 使用 python -m edge_tts 模块调用，不依赖 PATH
-
-### 🎯 最新更新 (v2.0.5 - 2026-04-05)
-- ✅ **修复 PATH 依赖问题** - announce_pygame.py 改用 `python -m edge_tts` 模块调用，不依赖 PATH 环境变量
-- ✅ **Windows 高可靠性** - 即使 edge-tts 不在 PATH 也能正常工作
-- ✅ **配置状态记录** - AGENTS.md 添加语音播报配置状态追踪
-
-### 🎯 最新更新 (v2.0.4 - 2026-03-28)
-- ✅ **强化播报规则** - 5 种播报时机，内容原则，检查清单
-- ✅ **集成到核心配置** - AGENTS.md / SOUL.md / USER.md / MEMORY.md
-- ✅ **强制执行机制** - 每次交互都必须播报，不能遗漏
-- ✅ **内容规范** - ≤20 字，口语化，不带名称
-
-### 🎯 历史更新 (v1.5.0-v1.7.4)
-- ✅ **Windows 默认使用 pygame** - `announce.sh` 在 Windows 平台自动调用 `announce_pygame.py`
-- ✅ **简化 Windows 使用** - 无需手动选择脚本，统一使用 `announce.sh`
-- ✅ **清理无用测试脚本** - 移除 `test-integration.sh` 和备份文件
-
-### 📜 历史更新
-- **v1.4.0**: Windows 11 完整支持，新增 `announce_pygame.py`，修复新会话语音、macOS 兼容性、跨平台哈希计算
-- **v1.3.0**: 新增 workflow-helper.sh，支持自动包装命令
-- **v1.2.0**: 新增离线模式支持
-- **v1.1.0**: 支持多语言（9种语言）
-- **v1.0.0**: 初始版本，支持 macOS/Linux
-
-### 特性
-
-- 🎯 **透明度**：清楚知道 AI 正在执行什么操作
-- 🔒 **安全感**：实时听到操作，不用盯着日志看
-- 💬 **人性化**：友好的声音，不是冷冰冰的文字
-- ⚡ **效率**：专注你的工作，让 AI 用声音告诉你进度
-- 🌍 **9种语言**：中文、英文、日文、韩文、西班牙语、法语、德语等
-- 🔄 **队列机制**：消息永不丢失，自动重试
-- 🛡️ **防遗忘**：启动自检 + 身份绑定，两重保障
-- 🔌 **Session Hook**：自动在 /NEW 和 /RESET 后运行检查
+**安装**: `clawhub install beep` 或 `pip install beep-announcement`
 
 ---
 
-## 🛡️ 防遗忘机制（最重要！）
+## 🎯 品牌说明
 
-为了防止播报功能在 `/RESET` 或 `/NEW` 后失效，本 skill 实现了**多层防护**：
+### 为什么叫 "Beep · 小喇叭"？
+- **Beep**：4个字母，小学生都会读，电脑提示音的代名词
+- **小喇叭**：童年记忆中的通知工具，一说就懂
+- **组合**：既有科技感（Beep），又有亲切感（小喇叭）
+- **Slogan**：让电脑会说话
 
-### 1️⃣ 启动自检（Session Start）
-
-每次 OpenClaw 新会话开始时，自动运行 `scripts/startup_check_announcement.py`：
-
-- ✅ 检查 edge-tts、pygame、配置文件、包安装
-- ✅ 自动播放"系统启动"测试语音
-- ✅ 如有问题立即输出修复建议
-
-**自动配置方法**（任选其一）：
-
-**Windows PowerShell** (`$PROFILE`)：
-```powershell
-$checkAudio = "C:\Users\williammiao\.openclaw-autoclaw\skills\audio-announcement\scripts\startup_check_announcement.py"
-if (Test-Path $checkAudio) {
-    python $checkAudio | Out-Host
-}
-```
-
-**macOS/Linux** (`~/.bashrc`)：
+### 命令行工具
 ```bash
-python ~/.openclaw-autoclaw/skills/audio-announcement/scripts/startup_check_announcement.py 2>/dev/null || true
+# 新命令（推荐）
+beep test                    # 测试所有类型播报
+beep config                  # 查看/设置配置
+beep verify-integration      # 一键验证集成（新增！）
+beep stats                   # 查看统计信息
+
+# 旧命令（兼容）
+audio-announce test         # 仍可用（向后兼容）
+audio-announce config
 ```
 
+---
 
-### 3️⃣ 强制规则（AGENTS.md）
+## 🆕 最新更新 (v2.1.0 - 2026-04-19)
 
-在 `AGENTS.md` 中添加：
+### 🎉 新增：一键集成验证
+- ✅ **`beep verify-integration`** - 完整验证命令
+  - 依赖检查（pygame, edge-tts, Python 版本）
+  - 配置验证（音量、语言、异步设置）
+  - 环境自检（7项系统检查）
+  - **播放4种测试语音**（receive, task, complete, error）
+  - 输出结构化报告 + 返回码（0=成功，1=失败）
+  - 安装后首次运行，一键确认集成成功
 
-```markdown
-### 2️⃣ 语音播报强制执行（严禁遗漏）
+### 🔧 稳定性增强
+- ✅ **重试机制**：网络调用 3 次重试 + 指数退避（1s→2s→4s）
+- ✅ **播放降级**：pygame → 系统播放器 → 仅日志（保证核心功能）
+- ✅ **配置热重载**：`beep config reload` 无需重启应用
+- ✅ **LRU 缓存**：自动清理旧文件，默认保留最新100个
+- ✅ **结构化日志**：时间戳 + 级别 + 消息，支持 DEBUG/INFO/WARNING/ERROR
+- ✅ **运行时统计**：缓存大小、成功率、运行时间
+- ✅ **异常堆栈**：`exc_info=True`，调试更清晰
+- ✅ **路径容错**：中文/空格路径安全处理
 
-- 所有 agent 必须显式调用播报脚本
-- 禁止仅依赖记忆中的规则而不实际执行
-- 每次发送回复前必须完成 `complete` 播报
-- 任务开始前必须完成 `task` 播报
+### 🐛 问题修复
+- ✅ 修复配置读取 bug（配置文件路径错误）
+- ✅ 修复方法缺失问题（AnnouncementHelper 类同步）
+- ✅ 修复函数名错误（`cleanup_old_cache` → `cleanup_temp_files`）
+- ✅ 修复重��定义（移除重复的 `clear_cache` 和 `reload_config`）
+- ✅ 删除多余文件（误创建的 `core.py`）
 
-📋 自我检查清单：
-- [ ] 收到消息时是否播报了 `receive`？
-- [ ] 任务开始时是否播报了 `task`？
-- [ ] 执行过程中是否播报了关键步骤？
-- [ ] 完成任务后是否播报了 `complete`？
-- [ ] 遇到异常时是否播报了 `error`？
-```
-
-### 4️⃣ 身份绑定（IDENTITY.md）
-
-播报是你的**核心身份特质**，不是可选项。在 `IDENTITY.md` 中记录：
-
-```markdown
-## 核心特质
-- 每次交互都必须语音播报（强制执行）
-- 有温暖、机敏、可靠的声音
-- 透明化操作，让用户知道我在做什么
-
-## 启动播报自检
-每次 /NEW 或 /RESET 后，自动检查：
-- [ ] edge-tts 和 pygame 是否安装
-- [ ] 配置文件是否存在
-- [ ] 运行 audio-announce test 验证功能
-- [ ] 如果失败，立即修复或提醒用户
-```
-
-### 5️⃣ 首次设置引导（BOOTSTRAP.md）
-
-在首次对话时，BOOTSTRAP.md 提供完整的播报设置流程，确保从一开始就配置好。
+### 📊 测试数据（v2.1.0）
+- **平台**：Windows 11 (win32)
+- **Python**：3.13.12
+- **pygame**：2.6.1 (SDL 2.28.4)
+- **edge-tts**：7.2.8
+- **测试结果**：6/6 成功（100%）
+- **缓存文件**：140 个（2.87 MB）
+- **运行时间**：~20 秒
 
 ---
 
@@ -145,7 +78,8 @@ python ~/.openclaw-autoclaw/skills/audio-announcement/scripts/startup_check_anno
 
 **每次交互都必须语音播报！**
 
-#### 播报时机与内容
+### 播报时机与内容
+
 | 时机 | 类型 | 内容要求 | 示例 |
 |------|------|----------|------|
 | 收到消息 | `receive` | 收到的指令信息 | "收到上传指令" |
@@ -155,7 +89,7 @@ python ~/.openclaw-autoclaw/skills/audio-announcement/scripts/startup_check_anno
 | **发送回复** | `complete` | 回复内容的简短总结 | "已发送项目地址" |
 | 遇到异常 | `error` | 错误描述 | "网络连接失败" |
 
-#### 内容原则
+### 内容原则
 - **信息丰富**：包含指令/规划/进度/总结
 - **简洁**：不超过 20 个字
 - **不带名称**：不说用户名、不说"我"
@@ -168,8 +102,8 @@ python ~/.openclaw-autoclaw/skills/audio-announcement/scripts/startup_check_anno
 ### Python Agent（推荐）
 
 ```python
-# 方式1: 使用 audio_announcement 包
-from audio_announcement import receive, task, complete, error
+# 方式1: 使用 beep 包（新名称）
+from beep import receive, task, complete, error
 
 # 一行调用，默认异步不阻塞
 receive("用户查询天气")
@@ -178,7 +112,7 @@ complete("已发送天气预报")
 error("网络超时")
 
 # 方式2: 使用 AnnouncementHelper（更多控制）
-from audio_announcement import AnnouncementHelper
+from beep import AnnouncementHelper
 helper = AnnouncementHelper()
 helper.config.async_default = True  # 默认异步
 helper.config.volume = 0.8           # 调整音量
@@ -188,23 +122,26 @@ helper.config.volume = 0.8           # 调整音量
 
 ```bash
 # 查看当前配置
-audio-announce config
+beep config
 
 # 设置配置
-audio-announce config async_default=true volume=0.8
+beep config async_default=true volume=0.8
 
 # 测试所有类型
-audio-announce test
+beep test
+
+# 一键验证集成（推荐！）
+beep verify-integration
 
 # 查看统计
-audio-announce stats
+beep stats
 
 # 启用/禁用
-audio-announce enable
-audio-announce disable
+beep enable
+beep disable
 ```
 
-配置文件位置：`~/.config/audio-announcement/config.json`
+配置文件位置：`~/.config/audio-announcement/config.json`（路径不变，保持兼容）
 
 ---
 
@@ -212,13 +149,13 @@ audio-announce disable
 
 | 平台 | 主方案 | 备选方案 | 安装命令 |
 |------|--------|----------|----------|
-| **Windows** | `announce_pygame.py` (pygame) | 无 | `pip install edge-tts pygame` |
-| **macOS** | `announce_pygame.py` (pygame) | `announce.sh` (afplay) | `brew install edge-tts && pip install pygame` |
-| **Linux** | `announce_pygame.py` (pygame) | `announce.sh` (mpg123) | `apt install edge-tts mpg123 && pip install pygame` |
+| **Windows** | pygame | 无 | `pip install beep-announcement pygame` |
+| **macOS** | pygame | afplay | `brew install edge-tts && pip install pygame beep-announcement` |
+| **Linux** | pygame | mpg123 | `apt install edge-tts mpg123 && pip install pygame beep-announcement` |
 
 **自动选择逻辑**：
-- 如果 `pygame` 可用 → 所有平台统一使用 `announce_pygame.py`
-- 如果 `pygame` 不可用 → macOS/Linux 使用 `announce.sh` + 系统播放器
+- 如果 `pygame` 可用 → 所有平台统一使用 pygame 方案
+- 如果 `pygame` 不可用 → macOS/Linux 使用系统播放器
 - Windows 无 pygame 会报错（必须安装 pygame）
 
 ---
@@ -227,19 +164,18 @@ audio-announce disable
 
 ### 方式一：PyPI（推荐）
 ```bash
-pip install audio-announcement
-pip install pygame  # 确保 pygame 可用
+pip install beep-announcement pygame
 ```
 
 ### 方式二：ClawHub
 ```bash
-clawhub install audio-announcement
+clawhub install beep
 ```
 
 ### 方式三：GitHub 源码
 ```bash
-git clone https://github.com/wililam/audio-announcement-skills.git
-cd audio-announcement-skills
+git clone https://github.com/wililam/beep-announcement.git
+cd beep-announcement
 pip install -e .
 ```
 
@@ -247,49 +183,34 @@ pip install -e .
 
 ## 🧪 测试与验证
 
-### 完整验证脚本
-
+### 一键验证集成（推荐！）
 ```bash
-# 项目自带的验证脚本
-cd ~/.openclaw-autoclaw/workspace
-py -3 scripts/verify_announcement.py
+beep verify-integration
 ```
 
-预期输出：
-```
-=== 语音播报功能验证 ===
+该命令会：
+1. ✅ 检查依赖是否正确安装
+2. ✅ 验证配置文件
+3. ✅ 运行环境自检
+4. ✅ **依次播放4种测试语音**
+5. ✅ 输出完整报告
 
-1. 检查依赖
-[OK] edge-tts 已安装: edge-tts 7.2.8
-[OK] pygame 已安装: 2.6.1
+听到测试语音 + 看到 "🎉 所有检查通过！" 表示集成成功。
 
-2. 检查脚本文件
-[OK] 脚本存在: ...\announce_pygame.py
-
-3. 测试播报功能
-[OK] receive 播报成功
-[OK] task 播报成功
-[OK] complete 播报成功
-[OK] error 播报成功
-
-==================================================
-全部通过
-通过率: 4/4
-
-恭喜！语音播报功能工作正常！
-```
-
-### 启动自检脚本
-
+### 基础测试
 ```bash
-cd ~/.openclaw-autoclaw/skills/audio-announcement
+beep test
+```
+
+测试所有4种播报类型（receive, task, complete, error）。
+
+### 启动自检
+```bash
+# 自动运行（每次 /new 或 /reset）
 python scripts/startup_check_announcement.py
-```
 
-### CLI 测试
-
-```bash
-audio-announce test
+# 手动运行
+beep check
 ```
 
 ---
@@ -302,7 +223,7 @@ audio-announce test
 {
   "enabled": true,             // 启用/禁用播报
   "default_lang": "zh",        // 默认语言
-  "volume": 1.0,               // 音量 (0.0-1.0)
+  "volume": 0.25,              // 音量 (0.0-1.0)
   "async_default": true,       // 默认异步播放
   "cache_enabled": true,       // 启用缓存
   "log_level": "WARNING",      // 日志级别
@@ -313,68 +234,8 @@ audio-announce test
 
 运行时修改：
 ```python
-from audio_announcement import set_config
+from beep import set_config
 set_config(async_default=False, volume=0.8)
-```
-
----
-
-## 📊 监控与维护
-
-
-### 日志查看
-
-```bash
-# 播放日志
-tail -f ~/.openclaw-autoclaw/skills/audio-announcement/logs/*.log
-
-# 缓存统计
-du -sh ~/.cache/audio-announcement/
-```
-
-### 清理缓存
-
-```bash
-# 清理所有缓存（会重新生成）
-rm -rf ~/.cache/audio-announcement/*.mp3
-```
-
----
-
-## 🧩 高级用法
-
-### 自定义语音
-
-修改 `audio_announcement/announce_helper.py` 中的 `voices` 字典：
-
-```python
-voices = {
-    "zh": "zh-CN-XiaoxiaoNeural",     # 晓晓
-    "en": "en-US-JennyNeural",        # Jenny
-    "ja": "ja-JP-NanamiNeural",       # 七海
-    # 更多参考: https://learn.microsoft.com/azure/ai-services/speech-service/language-support#text-to-speech
-}
-```
-
-### 批量播报
-
-```python
-from audio_announcement import announce
-
-steps = ["开始处理", "步骤一完成", "步骤二完成", "任务结束"]
-for step in steps:
-    announce("task", step)
-```
-
-### 错误处理
-
-```python
-try:
-    result = do_something()
-    complete("操作成功")
-except Exception as e:
-    error(f"操作失败: {e}")
-    raise
 ```
 
 ---
@@ -399,12 +260,6 @@ except Exception as e:
 - 确认 `startup_check_announcement.py` 已配置自动运行
 - 手动运行自检：`python scripts/startup_check_announcement.py`
 - 检查 IDENTITY.md 和 AGENTS.md 是否保留
-
-### 问题：ClawHub 发布失败
-
-ClawHub CLI 可能存在环境兼容问题，建议：
-- 使用 GitHub 版本：`pip install git+https://github.com/wililam/audio-announcement-skills.git`
-- 或换用 Python 3.12 环境重试
 
 ---
 
@@ -433,17 +288,18 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ## 🎉 总结
 
-audio-announcement v2.0.8 提供了：
+**Beep · 小喇叭** v2.1.0 提供了：
 
+- ✅ **一键集成验证**：`beep verify-integration` 安装后立即确认
 - ✅ **跨平台支持**（Windows/macOS/Linux）
-- ✅ **PyPI 一键安装**
-- ✅ **配置文件管理**
-- ✅ **防遗忘两重保障**（启动自检 + 强制规则）
+- ✅ **PyPI 一键安装**：`pip install beep-announcement`
+- ✅ **防遗忘机制**（启动自检 + 强制规则）
 - ✅ **Session Hook 自动恢复**
 - ✅ **异步非阻塞播放**
 - ✅ **9种语言支持**
+- ✅ **稳定性增强**（重试、降级、热重载、LRU 缓存）
 
-**你的 OpenClaw Agent 现在可以"开口说话"了，而且永远不会忘记！** 🦀🗣️
+**你的 OpenClaw Agent 现在可以"开口说话"了，而且永远不会忘记！** 🔔🗣️
 
 ---
 
@@ -451,16 +307,19 @@ audio-announcement v2.0.8 提供了：
 
 ```bash
 # 1. 安装
-pip install audio-announcement pygame
+pip install beep-announcement pygame
 
-# 2. 配置
-audio-announce config async_default=true
+# 2. 一键验证（推荐！）
+beep verify-integration
 
-# 3. 测试
-audio-announce test
+# 3. 配置
+beep config async_default=true
 
-# 4. 集成到你的 Agent
-from audio_announcement import receive, task, complete, error
+# 4. 测试
+beep test
+
+# 5. 集成到你的 Agent
+from beep import receive, task, complete, error
 ```
 
 开始享受透明、有温度的声音体验吧！
