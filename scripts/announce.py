@@ -20,10 +20,21 @@ except ImportError:
 
 def usage():
     print(f"Beep - Small speaker v{__version__}")
+    print("")
+    print("🎯 强制播报规则（每次交互必须遵守）:")
+    print("   类型: receive, task, complete, error")
+    print("   原则: 简洁≤20字 | 口语化 | 不带名称 | 信息丰富")
+    print("   示例: announce receive '收到上传指令'")
+    print("         announce task '准备发布到GitHub'")
+    print("         announce complete '上传完成'")
+    print("         announce error '网络连接失败'")
+    print("")
     print("Usage: announce <type> <message> [lang]")
     print("Types: receive, task, complete, error")
     print("Languages: zh (Chinese), en (English)")
     print("Example: announce receive '收到指令' zh")
+    print("")
+    print("📖 详细规则: 见 skills/beep-skills/HOOK.md")
 
 def main():
     if len(sys.argv) < 3:

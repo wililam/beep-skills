@@ -159,7 +159,7 @@
     "hooks": [
       {
         "name": "beep-announcement",
-        "description": "实时语音播报 OpenClaw 的每一步操作",
+        "description": "实时语音播报 OpenClaw 的每一步操作。每次交互必须播报，内容需简洁（≤20字）、口语化、不含名称（不说'我''你'）、信息丰富。详见 HOOK.md",
         "emoji": "🔔",
         "events": [
           "session.start",
