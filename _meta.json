@@ -1,6 +1,6 @@
 {
   "name": "beep-skills",
-  "version": "2.1.0-dev",
+  "version": "2.2.0",
   "description": "Real-time voice announcements for OpenClaw actions. | 实时语音播报AI的一举一动。",
   "display_name": "Beep · 小喇叭",
   "author": "miaoweilin",
@@ -20,7 +20,14 @@
     "one-click-verification"
   ],
   "changelog": {
-    "2.1.0-dev": [
+    "2.2.0": [
+      "🛡️ 防遗忘机制（6层防线）：openclaw.json hooks + BOOTSTRAP.md + AGENTS/MEMORY/IDENTITY",
+      "📁 文件集成规则：SKILL.md 明确说明需要在哪些文件中加入什么播报规则",
+      "📝 SKILL.md 重构：精简为纯技能文档，移除非技能内容",
+      "⚙️ openclaw.json hooks：每次会话启动自动运行自检脚本",
+      "📋 BOOTSTRAP.md：新会话自动加载播报规则速查表"
+    ],
+    "2.1.0": [
       "🎉 新增：一键集成验证命令 `beep verify-integration`",
       "🔧 稳定性增强：重试机制（3次指数退避）、播放降级（pygame→shell→日志）",
       "⚙️ 配置热重载：`beep config reload` 无需重启",
