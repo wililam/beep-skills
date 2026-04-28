@@ -1,4 +1,4 @@
-# Audio Announcement Skill
+# Beep Skill
 
 <div align="center">
 
