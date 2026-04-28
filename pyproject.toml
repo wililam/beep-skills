@@ -49,7 +49,7 @@ Issues = "https://github.com/wililam/beep-skills/issues"
 include = ["audio_announcement*"]
 
 [tool.setuptools.package-data]
-"audio_announcement" = ["scripts/*.py", "scripts/*.sh"]
+"audio_announcement" = ["scripts/*.py"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

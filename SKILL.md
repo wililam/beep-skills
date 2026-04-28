@@ -48,11 +48,11 @@
 
 | 文件 | 职责 | 需要加入的内容 |
 |------|------|----------------|
-| [`AGENTS.md`](../../../workspace/AGENTS.md) | 智能体行为准则 | 播报时机表、内容原则、强制播报场景、播报脚本路径、示例 |
-| [`MEMORY.md`](../../../workspace/MEMORY.md) | 记忆文档 | 强制播报规则表（receive/task/complete/error） |
-| [`IDENTITY.md`](../../../workspace/IDENTITY.md) | 身份标识 | 强制播报声明、启动播报自检 |
-| [`TOOLS.md`](../../../workspace/TOOLS.md) | 工具文档 | 语音播报系统说明、安装指南、配置 |
-| [`USER.md`](../../../workspace/USER.md) | 用户偏好 | 播报偏好设置 |
+| [`AGENTS.md`](../../workspace/AGENTS.md) | 智能体行为准则 | 播报时机表、内容原则、强制播报场景、播报脚本路径、示例 |
+| [`MEMORY.md`](../../workspace/MEMORY.md) | 记忆文档 | 强制播报规则表（receive/task/complete/error） |
+| [`IDENTITY.md`](../../workspace/IDENTITY.md) | 身份标识 | 强制播报声明、启动播报自检 |
+| [`TOOLS.md`](../../workspace/TOOLS.md) | 工具文档 | 语音播报系统说明、安装指南、配置 |
+| [`USER.md`](../../workspace/USER.md) | 用户偏好 | 播报偏好设置 |
 
 ---
 
@@ -368,15 +368,18 @@ beep test
 ```
 beep-skills/
 ├── SKILL.md                    # 本文件（技能说明 + 集成规则）
-├── HOOK.md                     # 钩子配置文档（详细规则）
 ├── _meta.json                  # 技能元数据
-├── audio_announcement/
-│   ├── __init__.py             # 包入口
-│   ├── announce_helper.py      # 核心库
-│   ├── scripts/
-│   │   └── announce_pygame.py  # pygame 播放脚本
-│   └── shell/
-│       ├── announce.sh         # macOS/Linux shell 脚本
+├── pyproject.toml              # 安装配置
+├── requirements.txt            # 依赖说明
+├── scripts/
+│   ├── announce.py             # 统一播报入口脚本
+│   └── startup_check_announcement.py  # 启动自检
+└── audio_announcement/
+    ├── __init__.py             # 包入口
+    ├── announce_helper.py      # 核心库
+    ├── cli.py                  # CLI 工具
+    └── scripts/
+        └── announce_pygame.py  # pygame 播放脚本
 │       └── announce.ps1        # PowerShell 脚本
 └── tests/                      # 测试用例
 ```
@@ -449,7 +452,6 @@ Agent 开始工作，每次交互都播报
 
 | 文档 | 说明 |
 |------|------|
-| [`HOOK.md`](HOOK.md) | 详细播报规则和场景示例 |
-| [`README.md`](README.md) | 完整使用指南 |
-| [`CHANGELOG.md`](CHANGELOG.md) | 版本更新日志 |
-| [`CONTRIBUTING.md`](CONTRIBUTING.md) | 贡献指南 |
+| [`BOOTSTRAP.md`](../../BOOTSTRAP.md) | 会话启动规则 |
+| [`AGENTS.md`](../../AGENTS.md) | 智能体行为准则 |
+| [`MEMORY.md`](../../MEMORY.md) | 记忆文档 |

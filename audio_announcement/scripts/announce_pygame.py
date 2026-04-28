@@ -4,7 +4,7 @@
 Audio Announcement Player - PyGame Version (v2.2.0)
 使用 pygame.mixer 播放，高质量、低延迟
 
-🎯 强制播报规则（每次交互必须遵守）:
+强制播报规则（每次交互必须遵守）:
 - 类型: receive, task, complete, error
 - 原则: 简洁≤20字 | 口语化 | 不带名称 | 信息丰富
 - 示例:
@@ -13,7 +13,7 @@ Audio Announcement Player - PyGame Version (v2.2.0)
     complete: "上传完成"
     error: "网络连接失败"
 
-详细规则见: skills/beep-skills/HOOK.md
+详细规则见: skills/beep-skills/SKILL.md
 """
 
 import os

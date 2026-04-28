@@ -57,7 +57,7 @@
     ],
     "1.5.0-1.7.4": [
       "Windows 11 完整支持，新增 announce_pygame.py",
-      "简化 Windows 使用，统一 announce.sh",
+      "简化 Windows 使用",
       "清理无用测试脚本"
     ]
   },
@@ -80,8 +80,7 @@
     "main": "beep",
     "compat": "audio-announce",
     "announce": "scripts/announce.py",
-    "announce_pygame": "scripts/announce_pygame.py",
-    "verify": "scripts/verify_integration.py"
+    "announce_pygame": "audio_announcement/scripts/announce_pygame.py"
   },
   "commands": {
     "beep": {
