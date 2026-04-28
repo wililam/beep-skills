@@ -47,7 +47,7 @@ Your AI agent shouldn't be a black box. With this skill, OpenClaw becomes a **ta
 
 ```bash
 # Install from ClawHub
-clawhub install beep-skills-skills
+clawhub install beep-skills
 
 # Install dependencies
 pip install edge-tts
